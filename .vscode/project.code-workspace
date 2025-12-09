@@ -9,13 +9,17 @@
       "path": "../libs/lib"
     },
     {
+      "name": "@effect-workos/server",
+      "path": "../apps/server"
+    },
+    {
       "name": "@effect-workos/web",
       "path": "../apps/web"
     },
     {
       "name": "@effect-workos/workos",
       "path": "../libs/workos"
-    },
+    }
   ],
   "launch": {
     "version": "0.2.0",
