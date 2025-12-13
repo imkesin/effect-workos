@@ -6,6 +6,7 @@
     "@eslint/js": "^9.39.1",
     "@types/node": "^24",
     "eslint": "^9.39.1",
+    "npm-run-all": "^4.1.5",
     "turbo": "^2.6.3",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.49.0",
@@ -24,6 +25,10 @@
     "typecheck": "turbo typecheck"
   },
   "type": "module",
+  "volta": {
+    "node": "24.12.0",
+    "pnpm": "10.25.0"
+  },
   "workspaces": [
     "apps/*",
     "libs/*"
