@@ -13,7 +13,8 @@ import * as HttpResponseExtensions from "../../lib/HttpResponseExtensions.ts"
 import {
   AuthenticateWithCodeParameters,
   AuthenticateWithCodeResponse,
-  CreateUserParameters
+  CreateUserParameters,
+  DeleteUserResponse
 } from "./ApiClientDefinitionSchemas.ts"
 
 export interface Client {
@@ -28,6 +29,7 @@ export interface Client {
     User,
     HttpClientError.HttpClientError | ParseError
   >
+  readonly deleteUser: (userId: UserId) => Effect.Effect<DeleteUserResponse, HttpClientError.HttpClientError>
   readonly retrieveUser: (userId: UserId) => Effect.Effect<
     User,
     HttpClientError.HttpClientError | ResourceNotFoundError | ParseError
@@ -90,6 +92,17 @@ export const make = (httpClient: HttpClient.HttpClient): Client => {
         flatMapResponse(
           HttpClientResponse.matchStatus({
             "2xx": HttpResponseExtensions.decodeExpected(User),
+            orElse: HttpResponseExtensions.unexpectedStatus
+          })
+        )
+      ),
+    deleteUser: (userId) =>
+      pipe(
+        HttpClientRequest.del(`/users/${userId}`),
+        mapResponse(
+          HttpClientResponse.matchStatus({
+            "2xx": () => Effect.succeed(DeleteUserResponse.Success()),
+            "404": () => Effect.succeed(DeleteUserResponse.NotFound()),
             orElse: HttpResponseExtensions.unexpectedStatus
           })
         )

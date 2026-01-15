@@ -1,3 +1,4 @@
+import * as Data from "effect/Data"
 import { pipe } from "effect/Function"
 import * as Option from "effect/Option"
 import * as S from "effect/Schema"
@@ -160,3 +161,9 @@ export class CreateUserParameters extends S.Class<CreateUserParameters>("CreateU
     S.optional
   )
 }) {}
+
+export type DeleteUserResponse = Data.TaggedEnum<{
+  Success: Record<never, never>
+  NotFound: Record<never, never>
+}>
+export const DeleteUserResponse = Data.taggedEnum<DeleteUserResponse>()

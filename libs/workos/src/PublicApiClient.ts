@@ -24,7 +24,7 @@ export const make = (
      */
     readonly clientId: ClientId
   }
-): Effect.Effect<Service, never, never> =>
+): Effect.Effect<Service> =>
   Effect.succeed(
     PublicApiClient.of({
       client: {
@@ -40,13 +40,13 @@ export const layer = (
   options: {
     readonly clientId: ClientId
   }
-): Layer.Layer<PublicApiClient, never, never> => Layer.effect(PublicApiClient, make(options))
+): Layer.Layer<PublicApiClient> => Layer.effect(PublicApiClient, make(options))
 
 export const layerConfig = (
   options: {
     readonly clientId: Config.Config<ClientId>
   }
-): Layer.Layer<PublicApiClient, ConfigError, never> => {
+): Layer.Layer<PublicApiClient, ConfigError> => {
   return pipe(
     Config.all(options),
     Effect.flatMap((configs) => make(configs)),

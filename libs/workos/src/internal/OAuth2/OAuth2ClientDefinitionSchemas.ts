@@ -20,7 +20,7 @@ const ScopeFromSet = S.transform(
     encode: (toI) => Array.from(toI).join(" ")
   }
 )
-const AuthorizeScopeFromSet = S.transformOrFail(
+export const AuthorizeScopeFromSet = S.transformOrFail(
   S.Trimmed,
   S.ReadonlySetFromSelf(
     S.Literal("openid", "profile", "email", "offline_access")
@@ -51,41 +51,6 @@ const DurationFromSeconds = S.transform(
     encode: (toI) => Duration.toSeconds(toI)
   }
 )
-
-export class BuildAuthorizeUrlParameters extends S.Class<BuildAuthorizeUrlParameters>("BuildAuthorizeUrlParameters")({
-  clientId: pipe(
-    ClientId,
-    S.propertySignature,
-    S.fromKey("client_id")
-  ),
-  nonce: S.NonEmptyTrimmedString,
-  redirectUri: pipe(
-    S.NonEmptyTrimmedString,
-    S.propertySignature,
-    S.fromKey("redirect_uri")
-  ),
-  responseType: pipe(
-    S.Literal("code"),
-    S.optionalWith({ default: () => "code" }),
-    S.fromKey("response_type")
-  ),
-  scope: AuthorizeScopeFromSet,
-
-  state: pipe(
-    S.NonEmptyTrimmedString,
-    S.optional
-  ),
-  codeChallenge: pipe(
-    S.NonEmptyTrimmedString,
-    S.optional,
-    S.fromKey("code_challenge")
-  ),
-  codeChallengeMethod: pipe(
-    S.Literal("S256"),
-    S.optional,
-    S.fromKey("code_challenge_method")
-  )
-}) {}
 
 const RetrieveTokenParameters_CommonFields = {
   clientId: pipe(

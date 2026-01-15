@@ -39,6 +39,11 @@ export const make = (): Effect.Effect<Service, never, ApiClient.ApiClient> =>
               client.userManagement.createUser(parameters),
               Effect.orDie
             ),
+          deleteUser: (userId) =>
+            pipe(
+              client.userManagement.deleteUser(userId),
+              Effect.orDie
+            ),
           retrieveUser: (userId) =>
             pipe(
               client.userManagement.retrieveUser(userId),

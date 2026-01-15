@@ -10,7 +10,7 @@ import { User } from "../domain/DomainEntities.ts"
 import { ResourceNotFoundError, UnauthorizedError } from "../domain/DomainErrors.ts"
 import { ClientId, generateUserId, OrganizationId, UserId } from "../domain/DomainIds.ts"
 import * as TokenGenerator from "../TokenGenerator.ts"
-import type { CreateUserParameters } from "./Api/ApiClientDefinitionSchemas.ts"
+import { type CreateUserParameters, DeleteUserResponse } from "./Api/ApiClientDefinitionSchemas.js"
 import {
   type RetrieveTokenByClientCredentialsParameters_Redacted,
   RetrieveTokenByClientCredentialsResponse
@@ -37,6 +37,7 @@ class ClientsModel extends S.Class<ClientsModel>("ClientModel")({
 
 interface UserManagement {
   readonly createUser: (parameters: typeof CreateUserParameters.Type) => Effect.Effect<User, never>
+  readonly deleteUser: (userId: UserId) => Effect.Effect<DeleteUserResponse, never>
   readonly retrieveUser: (userId: UserId) => Effect.Effect<User, ResourceNotFoundError>
 }
 
@@ -102,6 +103,20 @@ export const make = (options?: MakeOptions): Effect.Effect<
       pipe(
         findUsers,
         Effect.flatMap((existingUsers) => setUsers(new Map(existingUsers).set(user.id, user))),
+        Effect.orDie
+      )
+    const deleteUser = (userId: UserId) =>
+      pipe(
+        findUsers,
+        Effect.flatMap((existingUsers) => {
+          const users = new Map(existingUsers)
+          const userExisted = users.delete(userId)
+
+          return pipe(
+            setUsers(users),
+            Effect.map(() => ({ userExisted }))
+          )
+        }),
         Effect.orDie
       )
 
@@ -179,6 +194,15 @@ export const make = (options?: MakeOptions): Effect.Effect<
 
             return user.asEntity()
           }),
+          deleteUser: (userId: UserId) =>
+            pipe(
+              deleteUser(userId),
+              Effect.map(({ userExisted }) => (
+                userExisted
+                  ? DeleteUserResponse.Success()
+                  : DeleteUserResponse.NotFound()
+              ))
+            ),
           retrieveUser: (userId: UserId) =>
             pipe(
               findUserById(userId),

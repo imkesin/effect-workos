@@ -37,7 +37,7 @@ export const make = (
     )
 
     return OAuth2Client.of({
-      client: OAuth2ClientDefinitions.make(httpClient, { authKitPath })
+      client: OAuth2ClientDefinitions.make(httpClient)
     })
   })
 

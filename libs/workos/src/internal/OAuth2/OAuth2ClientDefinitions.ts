@@ -4,20 +4,16 @@ import * as HttpClientRequest from "@effect/platform/HttpClientRequest"
 import * as HttpClientResponse from "@effect/platform/HttpClientResponse"
 import * as UrlParams from "@effect/platform/UrlParams"
 import * as Effect from "effect/Effect"
-import * as Either from "effect/Either"
 import { pipe } from "effect/Function"
-import * as Option from "effect/Option"
 import type { ParseError } from "effect/ParseResult"
 import * as Redacted from "effect/Redacted"
 import * as Schedule from "effect/Schedule"
 import * as S from "effect/Schema"
 import { AccessToken } from "../../domain/DomainIds.ts"
 import * as HttpResponseExtensions from "../../lib/HttpResponseExtensions.ts"
-import { InvalidUrlError } from "../CommonErrors.ts"
 import {
   AuthorizeDeviceParameters,
   AuthorizeDeviceResponse,
-  BuildAuthorizeUrlParameters,
   DeviceCodeAuthorizationTerminated,
   RetrieveTokenByAuthorizationCodeParameters,
   type RetrieveTokenByAuthorizationCodeParameters_Redacted,
@@ -44,11 +40,6 @@ export interface Client {
   ) => Effect.Effect<
     typeof AuthorizeDeviceResponse.Type,
     HttpClientError.HttpClientError | ParseError
-  >
-
-  readonly buildAuthorizeUrl: (parameters: typeof BuildAuthorizeUrlParameters.Type) => Effect.Effect<
-    string,
-    InvalidUrlError | ParseError
   >
 
   readonly retrieveTokenByAuthorizationCode: (
@@ -90,7 +81,7 @@ export interface Client {
   >
 }
 
-export const make = (httpClient: HttpClient.HttpClient, options: { authKitPath: string }): Client => {
+export const make = (httpClient: HttpClient.HttpClient): Client => {
   const mapResponse: <A, E>(
     f: (response: HttpClientResponse.HttpClientResponse) => Effect.Effect<A, E>
   ) => (
@@ -129,24 +120,6 @@ export const make = (httpClient: HttpClient.HttpClient, options: { authKitPath: 
             "2xx": HttpResponseExtensions.decodeExpected(AuthorizeDeviceResponse),
             orElse: HttpResponseExtensions.unexpectedStatus
           })
-        )
-      ),
-    buildAuthorizeUrl: (parameters) =>
-      pipe(
-        parameters,
-        S.encode(BuildAuthorizeUrlParameters),
-        Effect.flatMap((_) =>
-          pipe(
-            UrlParams.makeUrl(
-              `${options.authKitPath}/oauth2/authorize`,
-              UrlParams.fromInput(_),
-              Option.none()
-            ),
-            Either.match({
-              onLeft: (error) => Effect.fail(new InvalidUrlError({ cause: error })),
-              onRight: (url) => Effect.succeed(url.toString())
-            })
-          )
         )
       ),
     retrieveTokenByAuthorizationCode: (parameters) =>
