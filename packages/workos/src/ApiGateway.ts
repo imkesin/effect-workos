@@ -20,7 +20,8 @@ export const makeTest = (): Effect.Effect<Service, never, Store.Store> =>
 
     return ApiGateway.of({
       client: {
-        userManagement: apiClient.userManagement
+        userManagement: apiClient.userManagement,
+        organizations: apiClient.organizations
       }
     })
   })
@@ -47,6 +48,27 @@ export const make = (): Effect.Effect<Service, never, ApiClient.ApiClient> =>
           retrieveUser: (userId) =>
             pipe(
               client.userManagement.retrieveUser(userId),
+              Effect.catchTags({
+                "RequestError": Effect.die,
+                "ResponseError": Effect.die,
+                "ParseError": Effect.die
+              })
+            )
+        },
+        organizations: {
+          createOrganization: (parameters) =>
+            pipe(
+              client.organizations.createOrganization(parameters),
+              Effect.orDie
+            ),
+          deleteOrganization: (organizationId) =>
+            pipe(
+              client.organizations.deleteOrganization(organizationId),
+              Effect.orDie
+            ),
+          retrieveOrganization: (organizationId) =>
+            pipe(
+              client.organizations.retrieveOrganization(organizationId),
               Effect.catchTags({
                 "RequestError": Effect.die,
                 "ResponseError": Effect.die,

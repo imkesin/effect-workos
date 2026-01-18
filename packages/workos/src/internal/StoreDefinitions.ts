@@ -6,11 +6,15 @@ import { pipe } from "effect/Function"
 import * as Option from "effect/Option"
 import * as Redacted from "effect/Redacted"
 import * as S from "effect/Schema"
-import { User } from "../domain/DomainEntities.ts"
+import { Organization, User } from "../domain/DomainEntities.ts"
 import { ResourceNotFoundError, UnauthorizedError } from "../domain/DomainErrors.ts"
-import { ClientId, generateUserId, OrganizationId, UserId } from "../domain/DomainIds.ts"
+import { ClientId, generateOrganizationId, generateUserId, OrganizationId, UserId } from "../domain/DomainIds.ts"
 import { EmailAddress } from "../domain/DomainValues.ts"
 import * as TokenGenerator from "../TokenGenerator.ts"
+import {
+  type CreateOrganizationParameters,
+  DeleteOrganizationResponse
+} from "./Api/OrganizationsApiClientDefinitionSchemas.ts"
 import { type CreateUserParameters, DeleteUserResponse } from "./Api/UserManagementApiClientDefinitionSchemas.ts"
 import {
   type RetrieveTokenByClientCredentialsParameters_Redacted,
@@ -30,6 +34,14 @@ class UsersModel extends S.Class<UsersModel>("UserModel")({
   }
 }
 
+class OrganizationsModel extends S.Class<OrganizationsModel>("OrganizationModel")({
+  ...Organization.fields
+}) {
+  asEntity() {
+    return Organization.make(this)
+  }
+}
+
 class ClientsModel extends S.Class<ClientsModel>("ClientModel")({
   id: ClientId,
   orgId: OrganizationId,
@@ -42,8 +54,15 @@ interface UserManagement {
   readonly retrieveUser: (userId: UserId) => Effect.Effect<User, ResourceNotFoundError>
 }
 
+interface Organizations {
+  readonly createOrganization: (parameters: typeof CreateOrganizationParameters.Type) => Effect.Effect<Organization>
+  readonly deleteOrganization: (organizationId: OrganizationId) => Effect.Effect<DeleteOrganizationResponse>
+  readonly retrieveOrganization: (organizationId: OrganizationId) => Effect.Effect<Organization, ResourceNotFoundError>
+}
+
 export interface ApiClient {
   readonly userManagement: UserManagement
+  readonly organizations: Organizations
 }
 
 export interface OAuth2Client {
@@ -154,6 +173,58 @@ export const make = (options?: MakeOptions): Effect.Effect<
         Effect.map(({ value }) => value)
       )
 
+    const organizationsStore = yield* Effect.map(
+      KeyValueStore.KeyValueStore,
+      (store) => store.forSchema(S.ReadonlyMap({ key: OrganizationId, value: OrganizationsModel }))
+    )
+    const findOrganizations = pipe(
+      organizationsStore.get("organizations"),
+      Effect.map(Option.getOrElse<ReadonlyMap<OrganizationId, OrganizationsModel>>(() => new Map())),
+      Effect.orDie
+    )
+    const findOrganizationById = (organizationId: OrganizationId) =>
+      pipe(
+        findOrganizations,
+        Effect.map((organizations) =>
+          pipe(
+            organizations.get(organizationId),
+            Option.fromNullable
+          )
+        ),
+        Effect.filterOrFail(
+          Option.isSome,
+          () => new ResourceNotFoundError()
+        ),
+        Effect.map(({ value }) => value)
+      )
+    const setOrganizations = (organizations: ReadonlyMap<OrganizationId, OrganizationsModel>) =>
+      pipe(
+        organizationsStore.set("organizations", organizations),
+        Effect.orDie
+      )
+    const insertOrganization = (organization: OrganizationsModel) =>
+      pipe(
+        findOrganizations,
+        Effect.flatMap((existingOrganizations) =>
+          setOrganizations(new Map(existingOrganizations).set(organization.id, organization))
+        ),
+        Effect.orDie
+      )
+    const deleteOrganization = (organizationId: OrganizationId) =>
+      pipe(
+        findOrganizations,
+        Effect.flatMap((existingOrganizations) => {
+          const organizations = new Map(existingOrganizations)
+          const organizationExisted = organizations.delete(organizationId)
+
+          return pipe(
+            setOrganizations(organizations),
+            Effect.map(() => ({ organizationExisted }))
+          )
+        }),
+        Effect.orDie
+      )
+
     if (options?.initialMachineClients) {
       yield* setClients(
         new Map(
@@ -208,6 +279,40 @@ export const make = (options?: MakeOptions): Effect.Effect<
             pipe(
               findUserById(userId),
               Effect.map((user) => user.asEntity())
+            )
+        },
+        organizations: {
+          createOrganization: Effect.fn(function*(parameters: typeof CreateOrganizationParameters.Type) {
+            const now = yield* DateTime.nowAsDate
+
+            const organization = OrganizationsModel.make({
+              id: generateOrganizationId(),
+              name: parameters.name,
+              domains: [],
+              stripeCustomerId: null,
+              externalId: parameters.externalId ?? null,
+              metadata: parameters.metadata ?? {},
+              createdAt: now,
+              updatedAt: now
+            })
+
+            yield* insertOrganization(organization)
+
+            return organization.asEntity()
+          }),
+          deleteOrganization: (organizationId: OrganizationId) =>
+            pipe(
+              deleteOrganization(organizationId),
+              Effect.map(({ organizationExisted }) => (
+                organizationExisted
+                  ? DeleteOrganizationResponse.Success()
+                  : DeleteOrganizationResponse.NotFound()
+              ))
+            ),
+          retrieveOrganization: (organizationId: OrganizationId) =>
+            pipe(
+              findOrganizationById(organizationId),
+              Effect.map((organization) => organization.asEntity())
             )
         }
       },

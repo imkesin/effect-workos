@@ -5,6 +5,7 @@ import { pipe } from "effect/Function"
 import * as Layer from "effect/Layer"
 import * as ApiClient from "../src/ApiClient.ts"
 import * as ApiGateway from "../src/ApiGateway.ts"
+import * as OrganizationsSuite from "./Organizations.suite.ts"
 import * as UserManagementSuite from "./UserManagement.suite.ts"
 
 const apiClient = ApiClient.layerConfig({
@@ -22,4 +23,5 @@ const integrationTestLayer = pipe(
 
 describe("ApiGateway - Integration", () => {
   layer(integrationTestLayer, { excludeTestServices: true })(UserManagementSuite.makeUserManagementTests())
+  layer(integrationTestLayer, { excludeTestServices: true })(OrganizationsSuite.makeOrganizationTests())
 })

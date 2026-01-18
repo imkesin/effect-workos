@@ -50,8 +50,7 @@ export class Organization extends S.Class<Organization>("@effect-workos/workos/O
 
   stripeCustomerId: pipe(
     S.NonEmptyTrimmedString,
-    S.NullOr,
-    S.propertySignature,
+    S.optional,
     S.fromKey("stripe_customer_id")
   ),
   externalId: pipe(

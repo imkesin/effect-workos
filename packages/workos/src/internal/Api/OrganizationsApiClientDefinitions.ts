@@ -59,7 +59,7 @@ export const make = (httpClient: HttpClient.HttpClient): Client => {
         S.encode(CreateOrganizationParameters),
         Effect.map((_) =>
           pipe(
-            HttpClientRequest.post("/organizations"),
+            HttpClientRequest.post("/"),
             HttpClientRequest.bodyUnsafeJson(_)
           )
         ),
@@ -72,7 +72,7 @@ export const make = (httpClient: HttpClient.HttpClient): Client => {
       ),
     deleteOrganization: (organizationId) =>
       pipe(
-        HttpClientRequest.del(`/organizations/${organizationId}`),
+        HttpClientRequest.del(`/${organizationId}`),
         mapResponse(
           HttpClientResponse.matchStatus({
             "2xx": () => Effect.succeed(DeleteOrganizationResponse.Success()),
@@ -83,7 +83,7 @@ export const make = (httpClient: HttpClient.HttpClient): Client => {
       ),
     retrieveOrganization: (organizationId) =>
       pipe(
-        HttpClientRequest.get(`/organizations/${organizationId}`),
+        HttpClientRequest.get(`/${organizationId}`),
         mapResponse(
           HttpClientResponse.matchStatus({
             "2xx": HttpResponseExtensions.decodeExpected(Organization),
