@@ -5,7 +5,7 @@ import * as Layer from "effect/Layer"
 import * as ApiGateway from "../src/ApiGateway.ts"
 import * as Store from "../src/Store.ts"
 import * as TokenGenerator from "../src/TokenGenerator.ts"
-import { createUserManagementTests } from "./UserManagement.suite.ts"
+import * as UserManagementSuite from "./UserManagement.suite.ts"
 
 const store = pipe(
   Store.layerTest(),
@@ -19,5 +19,5 @@ const unitTestLayer = pipe(
 )
 
 describe("ApiGateway - Unit", () => {
-  layer(unitTestLayer)(createUserManagementTests())
+  layer(unitTestLayer)(UserManagementSuite.makeUserManagementTests())
 })

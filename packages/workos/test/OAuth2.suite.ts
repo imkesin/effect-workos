@@ -15,7 +15,7 @@ export class OAuth2TestSuiteContext extends Context.Tag(
   "@effect-workos/workos/OAuth2TestSuiteContext"
 )<OAuth2TestSuiteContext, TestSuiteContext>() {}
 
-export const createOAuth2Tests = () =>
+export const makeOAuth2Tests = () =>
 (
   it: Vitest.MethodsNonLive<
     OAuth2Gateway.OAuth2Gateway | TokenClient.TokenClient | OAuth2TestSuiteContext,

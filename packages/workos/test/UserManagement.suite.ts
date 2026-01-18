@@ -3,8 +3,8 @@ import * as Effect from "effect/Effect"
 import * as ApiGateway from "../src/ApiGateway.ts"
 import { EmailAddress } from "../src/domain/DomainValues.ts"
 
-export const createUserManagementTests = () => (it: Vitest.MethodsNonLive<ApiGateway.ApiGateway, boolean>) => {
-  it.effect("can create a user via UserManagement API", () =>
+export const makeUserManagementTests = () => (it: Vitest.MethodsNonLive<ApiGateway.ApiGateway, boolean>) => {
+  it.scoped("can create a user via UserManagement API", () =>
     Effect.gen(function*() {
       const { client } = yield* ApiGateway.ApiGateway
 
@@ -19,6 +19,8 @@ export const createUserManagementTests = () => (it: Vitest.MethodsNonLive<ApiGat
           testRun: timestamp.toString()
         }
       })
+
+      yield* Effect.addFinalizer(() => client.userManagement.deleteUser(user.id))
 
       expect(user.email).toEqual(testEmail)
       expect(user.firstName).toEqual("Test")

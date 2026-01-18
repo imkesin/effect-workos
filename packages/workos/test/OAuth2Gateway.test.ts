@@ -46,5 +46,5 @@ const unitTestLayer = Layer.mergeAll(
 )
 
 describe("OAuth2Gateway - Unit", () => {
-  layer(unitTestLayer)(OAuth2TestSuite.createOAuth2Tests())
+  layer(unitTestLayer)(OAuth2TestSuite.makeOAuth2Tests())
 })

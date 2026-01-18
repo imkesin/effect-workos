@@ -54,5 +54,5 @@ const integrationTestLayer = pipe(
 )
 
 describe("OAuth2Client - Integration", () => {
-  layer(integrationTestLayer, { excludeTestServices: true })(OAuth2TestSuite.createOAuth2Tests())
+  layer(integrationTestLayer, { excludeTestServices: true })(OAuth2TestSuite.makeOAuth2Tests())
 })
