@@ -1,5 +1,6 @@
 import * as WorkOSPublicApiClient from "@effect-workos/workos/PublicApiClient"
-import { Effect } from "effect"
+import * as Config from "effect/Config"
+import * as Effect from "effect/Effect"
 import type { NextRequest } from "next/server"
 import { runWithServerRuntime } from "~/infra/Runtime/server/runWithServerRuntime"
 import { serverRedirect } from "~/lib/serverRedirect"
@@ -7,10 +8,12 @@ import { serverRedirect } from "~/lib/serverRedirect"
 const signInRoute = Effect.gen(function*() {
   const { client } = yield* WorkOSPublicApiClient.PublicApiClient
 
+  const port = yield* Config.number("PORT")
+
   const authUrl = yield* client.userManagement.buildAuthorizationUrl({
     screenHint: "sign-in",
     provider: "authkit",
-    redirectUri: "http://localhost:3000/sign-in/callback"
+    redirectUri: `http://localhost:${port}/sign-in/callback`
   })
 
   yield* Effect.log(`Redirecting to Auth URL: ${authUrl}`)
