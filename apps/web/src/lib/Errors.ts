@@ -8,7 +8,7 @@ export class DynamicServerError extends Schema.TaggedError<DynamicServerError>()
     _nextCause: Schema.instanceOf(NextDynamicServerError)
   },
   {
-    description: "A dynamic server error occurred."
+    description: "An error was thrown to indicate that a page should be re-rendered dynamically"
   }
 ) {
   static fromNextDynamicServerError(error: NextDynamicServerError) {
@@ -23,7 +23,7 @@ export class RedirectError extends Schema.TaggedError<RedirectError>()(
     _nextCause: Schema.Defect
   },
   {
-    description: "A redirect is required."
+    description: "An error was thrown to indicate that this request should be redirected"
   }
 ) {
   static fromNextRedirectError(error: NextRedirectError) {

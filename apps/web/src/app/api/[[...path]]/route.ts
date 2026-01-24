@@ -1,6 +1,6 @@
 import { HttpApiBuilder, HttpMiddleware, HttpServer } from "@effect/platform"
 import { Layer, pipe } from "effect"
-import { getManagedServerRuntime } from "~/infra/Runtime/server/getManagedServerRuntime"
+import { getManagedServerRuntime } from "~/infra/runtime/server/getManagedServerRuntime"
 import { WebApi } from "../WebApi"
 
 const WebApiLive = HttpApiBuilder.api(WebApi)

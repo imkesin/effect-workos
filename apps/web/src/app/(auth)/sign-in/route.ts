@@ -2,7 +2,7 @@ import * as WorkOSPublicApiClient from "@effect-workos/workos/PublicApiClient"
 import * as Config from "effect/Config"
 import * as Effect from "effect/Effect"
 import type { NextRequest } from "next/server"
-import { runWithServerRuntime } from "~/infra/Runtime/server/runWithServerRuntime"
+import { runWithServerRuntime } from "~/infra/runtime/server/runWithServerRuntime"
 import { serverRedirect } from "~/lib/serverRedirect"
 
 const signInRoute = Effect.gen(function*() {

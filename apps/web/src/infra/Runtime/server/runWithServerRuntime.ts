@@ -1,6 +1,6 @@
 import { UnexpectedError } from "@effect-workos/lib/errors/UnexpectedError"
 import { Effect, Exit, Runtime } from "effect"
-import { isDynamicServerError, isRedirectError } from "~/lib/Errors"
+import { isDynamicServerError, isRedirectError } from "~/lib/NextError"
 import { getManagedServerRuntime } from "./getManagedServerRuntime"
 import type { ServerLayerSuccess } from "./serverLayer"
 

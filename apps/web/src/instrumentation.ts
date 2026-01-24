@@ -1,4 +1,4 @@
-import { getManagedServerRuntime } from "./infra/Runtime/server/getManagedServerRuntime"
+import { getManagedServerRuntime } from "./infra/runtime/server/getManagedServerRuntime"
 
 export function register() {
   const managedRuntime = getManagedServerRuntime()
