@@ -6,7 +6,7 @@ import { User } from "../../domain/DomainEntities.ts"
 import { ClientId, OrganizationId, UserId } from "../../domain/DomainIds.ts"
 import { AccessToken, AuthenticationCode, Impersonator, RefreshToken } from "../../domain/DomainValues.ts"
 
-const AuthenticateCommonFields = {
+const AuthenticateRequestCommonFields = {
   clientId: pipe(
     ClientId,
     S.propertySignature,
@@ -24,14 +24,33 @@ const AuthenticateCommonFields = {
   )
 } as const
 
-const AuthenticateWithSecretFields = {
+const AuthenticateRequestWithSecretCommonFields = {
+  ...AuthenticateRequestCommonFields,
+
   clientSecret: pipe(
     S.NonEmptyTrimmedString,
     S.propertySignature,
     S.fromKey("client_secret")
-  ),
+  )
+} as const
 
-  ...AuthenticateCommonFields
+const AuthenticateResponseCommonFields = {
+  user: User,
+  organizationId: pipe(
+    OrganizationId,
+    S.optional,
+    S.fromKey("organization_id")
+  ),
+  accessToken: pipe(
+    AccessToken,
+    S.propertySignature,
+    S.fromKey("access_token")
+  ),
+  refreshToken: pipe(
+    RefreshToken,
+    S.propertySignature,
+    S.fromKey("refresh_token")
+  )
 } as const
 
 export class AuthenticateWithCodeParameters
@@ -48,27 +67,13 @@ export class AuthenticateWithCodeParameters
       )
     ),
 
-    ...AuthenticateWithSecretFields
+    ...AuthenticateRequestWithSecretCommonFields
   })
 {}
 export class AuthenticateWithCodeResponse
   extends S.Class<AuthenticateWithCodeResponse>("AuthenticateWithCodeResponse")({
-    user: User,
-    organizationId: pipe(
-      OrganizationId,
-      S.optional,
-      S.fromKey("organization_id")
-    ),
-    accessToken: pipe(
-      AccessToken,
-      S.propertySignature,
-      S.fromKey("access_token")
-    ),
-    refreshToken: pipe(
-      RefreshToken,
-      S.propertySignature,
-      S.fromKey("refresh_token")
-    ),
+    ...AuthenticateResponseCommonFields,
+
     impersonator: pipe(
       Impersonator,
       S.optional
@@ -96,7 +101,7 @@ export class AuthenticateWithPKCEParameters
       S.fromKey("grant_type")
     ),
 
-    ...AuthenticateCommonFields
+    ...AuthenticateRequestCommonFields
   })
 {}
 
@@ -119,7 +124,12 @@ export class AuthenticateWithRefreshTokenParameters
       S.fromKey("grant_type")
     ),
 
-    ...AuthenticateWithSecretFields
+    ...AuthenticateRequestWithSecretCommonFields
+  })
+{}
+export class AuthenticateWithRefreshTokenResponse
+  extends S.Class<AuthenticateWithRefreshTokenResponse>("AuthenticateWithRefreshTokenResponse")({
+    ...AuthenticateResponseCommonFields
   })
 {}
 

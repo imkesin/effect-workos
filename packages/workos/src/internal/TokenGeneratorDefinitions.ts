@@ -5,8 +5,8 @@ import { pipe } from "effect/Function"
 import * as S from "effect/Schema"
 import * as Jose from "jose"
 import type { ClientId, OrganizationId, SessionId, UserId } from "../domain/DomainIds.ts"
-import { AccessToken } from "../domain/DomainValues.ts"
-import { generateUlid } from "../lib/ULID.ts"
+import { AccessToken, RefreshToken } from "../domain/DomainValues.ts"
+import { generateRandomString } from "../lib/RandomString.ts"
 
 class GenerateTokenError extends S.TaggedError<GenerateTokenError>("@effect-workos/workos/GenerateTokenError")(
   "GenerateTokenError",
@@ -16,15 +16,17 @@ class GenerateTokenError extends S.TaggedError<GenerateTokenError>("@effect-work
 ) {}
 
 export interface Generator {
+  readonly generateAccessToken: (parameters: {
+    sessionId: SessionId
+    userId: UserId
+  }) => Effect.Effect<AccessToken, GenerateTokenError>
+
   readonly generateMachineAccessToken: (parameters: {
     clientId: ClientId
     orgId: OrganizationId
   }) => Effect.Effect<AccessToken, GenerateTokenError>
 
-  readonly generateSessionToken: (parameters: {
-    sessionId: SessionId
-    userId: UserId
-  }) => Effect.Effect<AccessToken, GenerateTokenError>
+  readonly generateRefreshToken: () => Effect.Effect<RefreshToken>
 }
 
 export const makeTest = (options: { readonly privateKey: Jose.CryptoKey }): Generator => {
@@ -33,9 +35,33 @@ export const makeTest = (options: { readonly privateKey: Jose.CryptoKey }): Gene
   const DEFAULT_DURATION = Duration.seconds(5)
 
   return {
+    generateAccessToken: Effect.fnUntraced(function*({ sessionId, userId }) {
+      const issuedAt = yield* DateTime.nowAsDate
+      const tokenId = generateRandomString("Id")
+
+      return yield* pipe(
+        Effect.tryPromise({
+          try: () =>
+            new Jose.SignJWT({ roles: [], sid: sessionId })
+              .setProtectedHeader({
+                alg: ALG,
+                typ: "JWT"
+              })
+              .setIssuer(ISS)
+              .setSubject(userId)
+              .setExpirationTime(new Date(issuedAt.getTime() + Duration.toMillis(DEFAULT_DURATION)))
+              .setIssuedAt(issuedAt)
+              .setJti(tokenId)
+              .sign(options.privateKey),
+          catch: (e) => new GenerateTokenError({ cause: e })
+        }),
+        Effect.map(AccessToken.make)
+      )
+    }),
+
     generateMachineAccessToken: Effect.fnUntraced(function*({ clientId, orgId }) {
       const issuedAt = yield* DateTime.nowAsDate
-      const tokenId = generateUlid()
+      const tokenId = generateRandomString("Id")
 
       return yield* pipe(
         Effect.tryPromise({
@@ -57,28 +83,6 @@ export const makeTest = (options: { readonly privateKey: Jose.CryptoKey }): Gene
       )
     }),
 
-    generateSessionToken: Effect.fnUntraced(function*({ sessionId, userId }) {
-      const issuedAt = yield* DateTime.nowAsDate
-      const tokenId = generateUlid()
-
-      return yield* pipe(
-        Effect.tryPromise({
-          try: () =>
-            new Jose.SignJWT({ roles: [], sid: sessionId })
-              .setProtectedHeader({
-                alg: ALG,
-                typ: "JWT"
-              })
-              .setIssuer(ISS)
-              .setSubject(userId)
-              .setExpirationTime(new Date(issuedAt.getTime() + Duration.toMillis(DEFAULT_DURATION)))
-              .setIssuedAt(issuedAt)
-              .setJti(tokenId)
-              .sign(options.privateKey),
-          catch: (e) => new GenerateTokenError({ cause: e })
-        }),
-        Effect.map(AccessToken.make)
-      )
-    })
+    generateRefreshToken: () => Effect.succeed(RefreshToken.make(generateRandomString("RefreshToken")))
   }
 }

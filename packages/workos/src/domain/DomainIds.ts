@@ -1,6 +1,6 @@
 import { pipe } from "effect/Function"
 import * as S from "effect/Schema"
-import { makePrefixedUlidGenerator } from "../lib/ULID.ts"
+import { makePrefixedIdGenerator } from "../lib/PrefixedId.ts"
 
 /**
  * The WorkOS Connect Application’s client ID.
@@ -11,7 +11,7 @@ export const ClientId = pipe(
   S.brand("@effect-workos/workos/ClientId")
 )
 export type ClientId = typeof ClientId.Type
-export const generateClientId = makePrefixedUlidGenerator(ClientId, "client")
+export const generateClientId = makePrefixedIdGenerator(ClientId, "client")
 
 export const OrganizationDomainId = pipe(
   S.NonEmptyTrimmedString,
@@ -19,14 +19,14 @@ export const OrganizationDomainId = pipe(
   S.brand("@effect-workos/workos/OrganizationDomainId")
 )
 export type OrganizationDomainId = typeof OrganizationDomainId.Type
-export const generateOrganizationDomainId = makePrefixedUlidGenerator(OrganizationDomainId, "org_domain")
+export const generateOrganizationDomainId = makePrefixedIdGenerator(OrganizationDomainId, "org_domain")
 
 export const OrganizationId = pipe(
   S.NonEmptyTrimmedString,
   S.brand("@effect-workos/workos/OrganizationId")
 )
 export type OrganizationId = typeof OrganizationId.Type
-export const generateOrganizationId = makePrefixedUlidGenerator(OrganizationId, "org")
+export const generateOrganizationId = makePrefixedIdGenerator(OrganizationId, "org")
 
 export const SessionId = pipe(
   S.NonEmptyTrimmedString,
@@ -34,7 +34,7 @@ export const SessionId = pipe(
   S.brand("@effect-workos/workos/SessionId")
 )
 export type SessionId = typeof SessionId.Type
-export const generateSessionId = makePrefixedUlidGenerator(SessionId, "session")
+export const generateSessionId = makePrefixedIdGenerator(SessionId, "session")
 
 export const OrganizationMembershipId = pipe(
   S.NonEmptyTrimmedString,
@@ -42,7 +42,7 @@ export const OrganizationMembershipId = pipe(
   S.brand("@effect-workos/workos/OrganizationMembershipId")
 )
 export type OrganizationMembershipId = typeof OrganizationMembershipId.Type
-export const generateOrganizationMembershipId = makePrefixedUlidGenerator(OrganizationMembershipId, "om")
+export const generateOrganizationMembershipId = makePrefixedIdGenerator(OrganizationMembershipId, "om")
 
 export const UserId = pipe(
   S.NonEmptyTrimmedString,
@@ -50,4 +50,4 @@ export const UserId = pipe(
   S.brand("@effect-workos/workos/UserId")
 )
 export type UserId = typeof UserId.Type
-export const generateUserId = makePrefixedUlidGenerator(UserId, "user")
+export const generateUserId = makePrefixedIdGenerator(UserId, "user")

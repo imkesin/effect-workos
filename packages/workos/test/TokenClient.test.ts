@@ -22,9 +22,9 @@ describe("TokenClient - Unit", () => {
         const sessionId = generateSessionId()
         const userId = generateUserId()
 
-        const token = yield* generator.generateSessionToken({ sessionId, userId })
+        const accessToken = yield* generator.generateAccessToken({ sessionId, userId })
 
-        const decoded = yield* client.decodeAccessToken(token)
+        const decoded = yield* client.decodeAccessToken(accessToken)
 
         if (decoded._tag !== "DecodedSessionAccessToken") {
           expect.fail("Expected a session token, but received another variant")
@@ -33,7 +33,7 @@ describe("TokenClient - Unit", () => {
         expect(decoded.sub).toEqual(userId)
         expect(decoded.sid).toEqual(sessionId)
 
-        const verified = yield* client.verifyAccessToken(token)
+        const verified = yield* client.verifyAccessToken(accessToken)
 
         if (verified._tag !== "DecodedSessionAccessToken") {
           expect.fail("Expected a session token, but received another variant")
@@ -51,7 +51,7 @@ describe("TokenClient - Unit", () => {
         const sessionId = generateSessionId()
         const userId = generateUserId()
 
-        const token = yield* generator.generateSessionToken({ sessionId, userId })
+        const token = yield* generator.generateAccessToken({ sessionId, userId })
 
         const decoded = yield* client.decodeAccessToken(token)
 

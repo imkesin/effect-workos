@@ -13,6 +13,8 @@ import * as HttpResponseExtensions from "../../lib/HttpResponseExtensions.ts"
 import {
   AuthenticateWithCodeParameters,
   AuthenticateWithCodeResponse,
+  AuthenticateWithRefreshTokenParameters,
+  AuthenticateWithRefreshTokenResponse,
   CreateOrganizationMembershipParameters,
   CreateUserParameters,
   DeleteOrganizationMembershipResponse,
@@ -24,6 +26,10 @@ export interface Client {
 
   readonly authenticateWithCode: (parameters: AuthenticateWithCodeParameters) => Effect.Effect<
     AuthenticateWithCodeResponse,
+    HttpClientError.HttpClientError | ParseError
+  >
+  readonly authenticateWithRefreshToken: (parameters: AuthenticateWithRefreshTokenParameters) => Effect.Effect<
+    AuthenticateWithRefreshTokenResponse,
     HttpClientError.HttpClientError | ParseError
   >
 
@@ -84,6 +90,23 @@ export const make = (httpClient: HttpClient.HttpClient): Client => {
         flatMapResponse(
           HttpClientResponse.matchStatus({
             "2xx": HttpResponseExtensions.decodeExpected(AuthenticateWithCodeResponse),
+            orElse: HttpResponseExtensions.unexpectedStatus
+          })
+        )
+      ),
+    authenticateWithRefreshToken: (parameters) =>
+      pipe(
+        parameters,
+        S.encode(AuthenticateWithRefreshTokenParameters),
+        Effect.map((_) =>
+          pipe(
+            HttpClientRequest.post("/authenticate"),
+            HttpClientRequest.bodyUnsafeJson(_)
+          )
+        ),
+        flatMapResponse(
+          HttpClientResponse.matchStatus({
+            "2xx": HttpResponseExtensions.decodeExpected(AuthenticateWithRefreshTokenResponse),
             orElse: HttpResponseExtensions.unexpectedStatus
           })
         )
