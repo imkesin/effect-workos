@@ -9,7 +9,9 @@ import * as TokenGenerator from "../src/TokenGenerator.ts"
 
 export const unitTestLayer = Layer.merge(
   TokenClient.layerKeyPairTest(),
-  TokenGenerator.layerKeyPairTest()
+  TokenGenerator.layerKeyPairTest({
+    authKitDomain: "authkit.workos.com"
+  })
 )
 
 describe("TokenClient - Unit", () => {

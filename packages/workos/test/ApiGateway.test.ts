@@ -1,5 +1,6 @@
 import { NodeKeyValueStore } from "@effect/platform-node"
 import { describe, layer } from "@effect/vitest"
+import * as Config from "effect/Config"
 import { pipe } from "effect/Function"
 import * as Layer from "effect/Layer"
 import * as ApiGateway from "../src/ApiGateway.ts"
@@ -11,7 +12,9 @@ import * as UserManagementSuite from "./UserManagement.suite.ts"
 const store = pipe(
   Store.layerTest(),
   Layer.provide(NodeKeyValueStore.layerFileSystem("./test/data/api")),
-  Layer.provide(TokenGenerator.layerKeyPairTest())
+  Layer.provide(TokenGenerator.layerKeyPairTestConfig({
+    authKitDomain: Config.string("WORKOS_AUTHKIT_DOMAIN")
+  }))
 )
 
 const unitTestLayer = pipe(

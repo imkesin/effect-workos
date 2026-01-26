@@ -4,7 +4,7 @@ import { UnexpectedError } from "@effect-workos/lib/errors/UnexpectedError"
 import { Effect, pipe } from "effect"
 import { isRedirectError as isNextRedirectError } from "next/dist/client/components/redirect-error"
 import { redirect } from "next/navigation"
-import { RedirectError } from "~/lib/NextError"
+import { RedirectError } from "~/lib/errors"
 
 export const serverRedirect = ({ url }: { url: string }) =>
   pipe(

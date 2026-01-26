@@ -1,4 +1,5 @@
 import { fileURLToPath } from "node:url"
+import { loadEnv } from "vite"
 import { defineConfig, type ViteUserConfig } from "vitest/config"
 
 export const commonConfig = {
@@ -16,12 +17,18 @@ export const commonConfig = {
   ]
 } as const satisfies ViteUserConfig["test"]
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   test: {
     name: "base",
     include: ["test/**/*.test.ts"],
     exclude: ["test/**/*.integration.test.ts"],
 
+    env: loadEnv(
+      mode,
+      fileURLToPath(new URL(".", import.meta.url)),
+      ""
+    ),
+
     ...commonConfig
   }
-})
+}))

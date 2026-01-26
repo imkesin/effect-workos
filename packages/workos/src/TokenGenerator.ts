@@ -1,3 +1,4 @@
+import * as Config from "effect/Config"
 import * as Context from "effect/Context"
 import * as Effect from "effect/Effect"
 import { pipe } from "effect/Function"
@@ -16,6 +17,7 @@ export class TokenGenerator extends Context.Tag(
 
 export const makeTest = (
   options: {
+    readonly authKitDomain: string
     readonly privateKey: Jose.CryptoKey
   }
 ): Effect.Effect<Service> =>
@@ -25,17 +27,25 @@ export const makeTest = (
 
 export const layerTest = (
   options: {
+    readonly authKitDomain: string
     readonly privateKey: Jose.CryptoKey
   }
 ): Layer.Layer<TokenGenerator> => Layer.effect(TokenGenerator, makeTest(options))
 
-export const layerKeyPairTest = () =>
+export const layerKeyPairTest = (options: { readonly authKitDomain: string }) =>
   pipe(
-    Effect.gen(function*() {
-      const { privateKey } = yield* KeyPairTest
+    Effect.flatMap(
+      KeyPairTest,
+      ({ privateKey }) => makeTest({ authKitDomain: options.authKitDomain, privateKey })
+    ),
+    Layer.effect(TokenGenerator),
+    Layer.provide(KeyPairTest.Default)
+  )
 
-      return layerTest({ privateKey })
-    }),
-    Layer.unwrapEffect,
+export const layerKeyPairTestConfig = (options: { readonly authKitDomain: Config.Config<string> }) =>
+  pipe(
+    Effect.all([Config.all(options), KeyPairTest]),
+    Effect.flatMap(([{ authKitDomain }, { privateKey }]) => makeTest({ authKitDomain, privateKey })),
+    Layer.effect(TokenGenerator),
     Layer.provide(KeyPairTest.Default)
   )

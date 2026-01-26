@@ -26,7 +26,7 @@
     "test": "vitest",
     "test:integration": "vitest --config ./vitest.integration.config.ts",
     "test:once": "vitest run",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --build"
   },
   "type": "module",
   "workspaces": [

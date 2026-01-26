@@ -25,13 +25,13 @@ export const make = (
   }
 ): Effect.Effect<Service, never, HttpClient.HttpClient> =>
   Effect.gen(function*() {
-    const authKitPath = `https://${options.authKitDomain}`
+    const authKitBaseURL = `https://${options.authKitDomain}`
 
     const httpClient = yield* pipe(
       HttpClient.HttpClient,
       Effect.map(
         HttpClient.mapRequest(
-          HttpClientRequest.prependUrl(authKitPath)
+          HttpClientRequest.prependUrl(authKitBaseURL)
         )
       )
     )

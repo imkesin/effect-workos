@@ -1,5 +1,6 @@
 import { NodeKeyValueStore } from "@effect/platform-node"
 import { describe, layer } from "@effect/vitest"
+import * as Config from "effect/Config"
 import { pipe } from "effect/Function"
 import * as Layer from "effect/Layer"
 import * as Redacted from "effect/Redacted"
@@ -30,7 +31,9 @@ const store = pipe(
     }]
   }),
   Layer.provide(NodeKeyValueStore.layerFileSystem("./test/data/oauth2")),
-  Layer.provide(TokenGenerator.layerKeyPairTest())
+  Layer.provide(TokenGenerator.layerKeyPairTestConfig({
+    authKitDomain: Config.string("WORKOS_AUTHKIT_DOMAIN")
+  }))
 )
 const oauth2Gateway = pipe(
   OAuth2Gateway.layerTest(),

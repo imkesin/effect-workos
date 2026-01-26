@@ -25,7 +25,7 @@ export const make = (
   Effect.succeed(
     PublicOAuth2Client.of({
       client: PublicOAuth2ClientDefinitions.make({
-        authKitPath: `https://${options.authKitDomain}`
+        authkitBaseURL: `https://${options.authKitDomain}`
       })
     })
   )

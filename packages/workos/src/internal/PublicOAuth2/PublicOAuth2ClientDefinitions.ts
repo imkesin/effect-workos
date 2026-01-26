@@ -15,7 +15,7 @@ export interface Client {
   >
 }
 
-export const make = (options: { authKitPath: string }): Client => {
+export const make = (options: { readonly authkitBaseURL: string }): Client => {
   return {
     buildAuthorizeUrl: (parameters) =>
       pipe(
@@ -24,7 +24,7 @@ export const make = (options: { authKitPath: string }): Client => {
         Effect.flatMap((_) =>
           pipe(
             UrlParams.makeUrl(
-              `${options.authKitPath}/oauth2/authorize`,
+              `${options.authkitBaseURL}/oauth2/authorize`,
               UrlParams.fromInput(_),
               Option.none()
             ),

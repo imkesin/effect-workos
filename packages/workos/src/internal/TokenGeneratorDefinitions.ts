@@ -29,10 +29,17 @@ export interface Generator {
   readonly generateRefreshToken: () => Effect.Effect<RefreshToken>
 }
 
-export const makeTest = (options: { readonly privateKey: Jose.CryptoKey }): Generator => {
+export const makeTest = (
+  options: {
+    readonly authKitDomain: string
+    readonly privateKey: Jose.CryptoKey
+  }
+): Generator => {
   const ALG = "RS256"
-  const ISS = "https://api.workos.com"
   const DEFAULT_DURATION = Duration.seconds(5)
+
+  const CORE_ISS = "https://api.workos.com"
+  const CONNECT_ISS = `https://${options.authKitDomain}`
 
   return {
     generateAccessToken: Effect.fnUntraced(function*({ sessionId, userId }) {
@@ -47,7 +54,7 @@ export const makeTest = (options: { readonly privateKey: Jose.CryptoKey }): Gene
                 alg: ALG,
                 typ: "JWT"
               })
-              .setIssuer(ISS)
+              .setIssuer(CORE_ISS)
               .setSubject(userId)
               .setExpirationTime(new Date(issuedAt.getTime() + Duration.toMillis(DEFAULT_DURATION)))
               .setIssuedAt(issuedAt)
@@ -71,7 +78,7 @@ export const makeTest = (options: { readonly privateKey: Jose.CryptoKey }): Gene
                 alg: ALG,
                 typ: "JWT"
               })
-              .setIssuer(ISS)
+              .setIssuer(CONNECT_ISS)
               .setSubject(clientId)
               .setExpirationTime(new Date(issuedAt.getTime() + Duration.toMillis(DEFAULT_DURATION)))
               .setIssuedAt(issuedAt)
