@@ -2,11 +2,11 @@ import { describe, layer } from "@effect/vitest"
 import * as Clock from "effect/Clock"
 import * as Effect from "effect/Effect"
 import { expect } from "vitest"
-import { UuidGenerator } from "../../src/uuid/UuidGenerator.js"
+import { UUIDGenerator } from "../../src/uuid/UUIDGenerator.ts"
 
-const testLayer = UuidGenerator.Default
+const testLayer = UUIDGenerator.Default
 
-describe("UuidGenerator", () => {
+describe("UUIDGenerator", () => {
   layer(testLayer)("v7", (it) => {
     it.effect("generates unique UUIDs within the same millisecond", () =>
       Effect.gen(function*() {
@@ -14,7 +14,7 @@ describe("UuidGenerator", () => {
         const uuids: string[] = []
 
         for (let i = 0; i < count; i++) {
-          const uuid = yield* UuidGenerator.v7
+          const uuid = yield* UUIDGenerator.v7
           uuids.push(uuid)
         }
 
@@ -28,7 +28,7 @@ describe("UuidGenerator", () => {
         const suffixes: string[] = []
 
         for (let i = 0; i < count; i++) {
-          const uuid = yield* UuidGenerator.v7
+          const uuid = yield* UUIDGenerator.v7
           const suffix = uuid.split("-").pop()!
           suffixes.push(suffix)
         }
@@ -49,7 +49,7 @@ describe("UuidGenerator", () => {
         const uuids: string[] = []
 
         for (let i = 0; i < count; i++) {
-          const uuid = yield* UuidGenerator.v7
+          const uuid = yield* UUIDGenerator.v7
           uuids.push(uuid)
         }
 
@@ -62,7 +62,7 @@ describe("UuidGenerator", () => {
       Effect.gen(function*() {
         const currentMs = yield* Clock.currentTimeMillis
 
-        const uuid = yield* UuidGenerator.v7
+        const uuid = yield* UUIDGenerator.v7
 
         // Extract first 12 hex chars (timestamp portion)
         const timestampHex = uuid.replace(/-/g, "").substring(0, 12)

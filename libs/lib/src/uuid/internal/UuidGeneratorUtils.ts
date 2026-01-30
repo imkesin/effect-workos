@@ -1,23 +1,4 @@
-import { UUIDv7 } from "../UUIDv7.ts"
-
-const HEX_ALPHABET = "0123456789abcdef"
-
-function formatAsUuid(bytes: Uint8Array) {
-  let output = "";
-
-  for (let i = 0; i < bytes.length; i++) {
-    const byte = bytes[i] ?? 0
-
-    output += HEX_ALPHABET.charAt(byte >>> 4);
-    output += HEX_ALPHABET.charAt(byte & 0xf);
-
-    if (i === 3 || i === 5 || i === 7 || i === 9) {
-      output += "-";
-    }
-  }
-
-  return UUIDv7.make(output);
-}
+import { formatBytesAsUUIDv7 } from "./UUIDv7Utils.ts"
 
 /**
  * Assemble a UUIDv7 from components.
@@ -27,7 +8,7 @@ function formatAsUuid(bytes: Uint8Array) {
  * - Bytes 6-7 (16 bits): version (4 bits = 0111) + rand_a (12 bits)
  * - Bytes 8-15 (64 bits): variant (2 bits = 10) + rand_b (62 bits)
  */
-export function buildUuid(
+export function buildUUID(
   milliseconds: number,
   randA: number,
   randBHi: number,
@@ -58,5 +39,5 @@ export function buildUuid(
   bytes[14] = (randBLo >>> 8) & 0xff
   bytes[15] = randBLo & 0xff
 
-  return formatAsUuid(bytes)
+  return formatBytesAsUUIDv7(bytes)
 }

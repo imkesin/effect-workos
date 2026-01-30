@@ -12,13 +12,13 @@
   },
   "private": true,
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --build tsconfig.src.json",
     "clean": "rm -rf .turbo dist",
     "dev": "tsc --watch --preserveWatchOutput",
     "lint": "eslint .",
     "test": "vitest",
     "test:once": "vitest run",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --build"
   },
   "type": "module"
 }

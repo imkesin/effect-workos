@@ -3,10 +3,10 @@ import * as Clock from "effect/Clock"
 import * as Random from "effect/Random"
 import * as Duration from "effect/Duration"
 import { pipe } from "effect/Function"
-import * as UuidGeneratorUtils from "./internal/UuidGeneratorUtils.js"
+import * as UUIDGeneratorUtils from "./internal/UUIDGeneratorUtils.ts"
 
-export class UuidGenerator extends Effect.Service<UuidGenerator>()(
-  "@effect-workos/lib/UuidGenerator",
+export class UUIDGenerator extends Effect.Service<UUIDGenerator>()(
+  "@effect-workos/lib/UUIDGenerator",
   {
     accessors: true,
     effect: Effect.gen(function*() {
@@ -51,7 +51,7 @@ export class UuidGenerator extends Effect.Service<UuidGenerator>()(
             }
           }
 
-          return UuidGeneratorUtils.buildUuid(
+          return UUIDGeneratorUtils.buildUUID(
             millis,
             randomA,
             randomBHi,

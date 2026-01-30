@@ -5,6 +5,10 @@
       "path": "../"
     },
     {
+      "name": "@effect-workos/domain",
+      "path": "../libs/domain"
+    },
+    {
       "name": "@effect-workos/lib",
       "path": "../libs/lib"
     },
@@ -69,6 +73,7 @@
   "settings": {
     "cSpell.words": [
       "authkit",
+      "crockford",
       "hstack",
       "millis",
       "pkce",
