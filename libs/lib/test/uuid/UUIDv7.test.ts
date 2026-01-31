@@ -1,6 +1,7 @@
 import { describe, it } from "@effect/vitest"
 import * as S from "effect/Schema"
 import { expect } from "vitest"
+import { pipe } from "effect/Function"
 import { ShortenedUUIDv7, UUIDv7, UUIDv7FromShortened } from "../../src/uuid/UUIDv7.ts"
 
 const FULL = "019c1144-15bd-7eff-a88d-37439858704e"
@@ -10,7 +11,7 @@ const SHORTENED = "06E12H0NQNZFZA4D6X1SGP3G9R"
 const SHORTENED_LOWER = SHORTENED.toLowerCase()
 
 describe("UUIDv7", () => {
-  const decode = S.decodeUnknownSync(UUIDv7)
+  const decode = S.decodeSync(UUIDv7)
 
   it("decodes valid lowercase UUID", async () => {
     const result = decode(FULL)
@@ -28,7 +29,7 @@ describe("UUIDv7", () => {
 })
 
 describe("ShortenedUUIDv7", () => {
-  const decode = S.decodeUnknownSync(ShortenedUUIDv7)
+  const decode = S.decodeSync(ShortenedUUIDv7)
 
   it("decodes valid uppercase shortened UUID", () => {
     const result = decode(SHORTENED)
@@ -47,29 +48,29 @@ describe("ShortenedUUIDv7", () => {
 
 describe("UUIDv7FromShortened", () => {
   it("decodes uppercase shortened to full UUID", () => {
-    const result = S.decodeUnknownSync(UUIDv7FromShortened)(SHORTENED)
+    const result = S.decodeSync(UUIDv7FromShortened)(SHORTENED)
     expect(result).toBe(FULL)
   })
 
   it("decodes lowercase shortened to full UUID", () => {
-    const result = S.decodeUnknownSync(UUIDv7FromShortened)(SHORTENED_LOWER)
+    const result = S.decodeSync(UUIDv7FromShortened)(SHORTENED_LOWER)
     expect(result).toBe(FULL)
   })
 
   it("encodes full UUID to shortened", () => {
-    const result = S.encodeUnknownSync(UUIDv7FromShortened)(FULL)
+    const result = pipe(UUIDv7.make(FULL), S.encodeSync(UUIDv7FromShortened))
     expect(result).toBe(SHORTENED)
   })
 
   it("roundtrip: decode then encode", () => {
-    const decoded = S.decodeUnknownSync(UUIDv7FromShortened)(SHORTENED)
-    const encoded = S.encodeUnknownSync(UUIDv7FromShortened)(decoded)
+    const decoded = S.decodeSync(UUIDv7FromShortened)(SHORTENED)
+    const encoded = S.encodeSync(UUIDv7FromShortened)(decoded)
     expect(encoded).toBe(SHORTENED)
   })
 
   it("roundtrip: encode then decode", () => {
-    const encoded = S.encodeUnknownSync(UUIDv7FromShortened)(FULL)
-    const decoded = S.decodeUnknownSync(UUIDv7FromShortened)(encoded)
+    const encoded = pipe(UUIDv7.make(FULL), S.encodeSync(UUIDv7FromShortened))
+    const decoded = S.decodeSync(UUIDv7FromShortened)(encoded)
     expect(decoded).toBe(FULL)
   })
 })
