@@ -4,22 +4,29 @@
       "name": "root",
       "path": "../"
     },
+    // Applications
     {
-      "name": "@effect-workos/domain",
-      "path": "../libs/domain"
-    },
-    {
-      "name": "@effect-workos/lib",
-      "path": "../libs/lib"
-    },
-    {
-      "name": "@effect-workos/server",
+      "name": "@one-kilo/server",
       "path": "../apps/server"
     },
     {
-      "name": "@effect-workos/web",
+      "name": "@one-kilo/web",
       "path": "../apps/web"
     },
+    // Libraries
+    {
+      "name": "@one-kilo/domain",
+      "path": "../libs/domain"
+    },
+    {
+      "name": "@one-kilo/lib",
+      "path": "../libs/lib"
+    },
+    {
+      "name": "@one-kilo/telemetry",
+      "path": "../libs/telemetry"
+    },
+    // Packages
     {
       "name": "@effect/auth-workos",
       "path": "../packages/workos"

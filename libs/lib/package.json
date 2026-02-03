@@ -1,5 +1,5 @@
 {
-  "name": "@effect-workos/lib",
+  "name": "@one-kilo/lib",
   "version": "0.1.0",
   "devDependencies": {
     "effect": "^3.19.15"

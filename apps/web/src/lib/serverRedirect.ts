@@ -1,6 +1,6 @@
 import "server-only"
 
-import { UnexpectedError } from "@effect-workos/lib/errors/UnexpectedError"
+import { UnexpectedError } from "@one-kilo/lib/errors/UnexpectedError"
 import { Effect, pipe } from "effect"
 import { isRedirectError as isNextRedirectError } from "next/dist/client/components/redirect-error"
 import { redirect } from "next/navigation"

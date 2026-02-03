@@ -1,5 +1,5 @@
 {
-  "name": "@effect-workos/tracing",
+  "name": "@one-kilo/telemetry",
   "version": "0.1.0",
   "type": "module",
   "private": true,

@@ -1,11 +1,11 @@
-import * as UUIDv7 from "@effect-workos/lib/uuid/UUIDv7"
+import * as UUIDv7 from "@one-kilo/lib/uuid/UUIDv7"
 import { pipe } from "effect/Function"
 import * as ParseResult from "effect/ParseResult"
 import * as S from "effect/Schema"
 
 export const WorkspaceId = pipe(
   UUIDv7.UUIDv7,
-  S.brand("@effect-workos/domain/WorkspaceId"),
+  S.brand("@one-kilo/domain/WorkspaceId"),
   S.annotations({
     description: "The unique identifier for a workspace.",
     identifier: "WorkspaceId",
@@ -17,7 +17,7 @@ export type WorkspaceId = typeof WorkspaceId.Type
 export const PrefixedWorkspaceId = pipe(
   S.NonEmptyTrimmedString,
   S.startsWith("w_"),
-  S.brand("@effect-workos/domain/PrefixedWorkspaceId"),
+  S.brand("@one-kilo/domain/PrefixedWorkspaceId"),
   S.annotations({
     description: "The unique identifier for a workspace.",
     identifier: "PrefixedWorkspaceId",

@@ -2,7 +2,7 @@ import * as WorkOSIds from "@effect/auth-workos/domain/Ids"
 import * as S from "effect/Schema"
 import { WorkspaceId } from "../ids/WorkspaceId.ts"
 
-export class Workspace extends S.TaggedClass<Workspace>("@effect-workos/domain/Workspace")(
+export class Workspace extends S.TaggedClass<Workspace>("@one-kilo/domain/Workspace")(
   "Workspace",
   {
     id: WorkspaceId,

@@ -6,7 +6,7 @@ import * as Random from "effect/Random"
 import * as UUIDGeneratorUtils from "./internal/UUIDGeneratorUtils.ts"
 
 export class UUIDGenerator extends Effect.Service<UUIDGenerator>()(
-  "@effect-workos/lib/UUIDGenerator",
+  "@one-kilo/lib/UUIDGenerator",
   {
     accessors: true,
     effect: Effect.gen(function*() {

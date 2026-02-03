@@ -47,9 +47,6 @@ importers:
 
   apps/server:
     dependencies:
-      '@effect-workos/lib':
-        specifier: workspace:*
-        version: link:../../libs/lib
       '@effect/auth-workos':
         specifier: workspace:*
         version: link:../../packages/workos
@@ -62,6 +59,9 @@ importers:
       '@effect/platform-node':
         specifier: ^0.104.1
         version: 0.104.1(@effect/cluster@0.55.0(@effect/platform@0.94.2(effect@3.19.15))(@effect/rpc@0.72.2(@effect/platform@0.94.2(effect@3.19.15))(effect@3.19.15))(@effect/sql@0.48.6(@effect/experimental@0.58.0(@effect/platform@0.94.2(effect@3.19.15))(effect@3.19.15))(@effect/platform@0.94.2(effect@3.19.15))(effect@3.19.15))(@effect/workflow@0.15.1(@effect/experimental@0.58.0(@effect/platform@0.94.2(effect@3.19.15))(effect@3.19.15))(@effect/platform@0.94.2(effect@3.19.15))(@effect/rpc@0.72.2(@effect/platform@0.94.2(effect@3.19.15))(effect@3.19.15))(effect@3.19.15))(effect@3.19.15))(@effect/platform@0.94.2(effect@3.19.15))(@effect/rpc@0.72.2(@effect/platform@0.94.2(effect@3.19.15))(effect@3.19.15))(@effect/sql@0.48.6(@effect/experimental@0.58.0(@effect/platform@0.94.2(effect@3.19.15))(effect@3.19.15))(@effect/platform@0.94.2(effect@3.19.15))(effect@3.19.15))(effect@3.19.15)
+      '@one-kilo/lib':
+        specifier: workspace:*
+        version: link:../../libs/lib
       effect:
         specifier: ^3.19.15
         version: 3.19.15
@@ -74,9 +74,6 @@ importers:
       '@effect-atom/atom-react':
         specifier: ^0.5.0
         version: 0.5.0(@effect/experimental@0.58.0(@effect/platform@0.94.2(effect@3.19.15))(effect@3.19.15))(@effect/platform@0.94.2(effect@3.19.15))(@effect/rpc@0.72.2(@effect/platform@0.94.2(effect@3.19.15))(effect@3.19.15))(effect@3.19.15)(react@19.2.1)(scheduler@0.27.0)
-      '@effect-workos/lib':
-        specifier: workspace:*
-        version: link:../../libs/lib
       '@effect/auth-workos':
         specifier: workspace:*
         version: link:../../packages/workos
@@ -86,6 +83,9 @@ importers:
       '@effect/platform-node':
         specifier: ^0.104.1
         version: 0.104.1(@effect/cluster@0.55.0(@effect/platform@0.94.2(effect@3.19.15))(@effect/rpc@0.72.2(@effect/platform@0.94.2(effect@3.19.15))(effect@3.19.15))(@effect/sql@0.48.6(@effect/experimental@0.58.0(@effect/platform@0.94.2(effect@3.19.15))(effect@3.19.15))(@effect/platform@0.94.2(effect@3.19.15))(effect@3.19.15))(@effect/workflow@0.15.1(@effect/experimental@0.58.0(@effect/platform@0.94.2(effect@3.19.15))(effect@3.19.15))(@effect/platform@0.94.2(effect@3.19.15))(@effect/rpc@0.72.2(@effect/platform@0.94.2(effect@3.19.15))(effect@3.19.15))(effect@3.19.15))(effect@3.19.15))(@effect/platform@0.94.2(effect@3.19.15))(@effect/rpc@0.72.2(@effect/platform@0.94.2(effect@3.19.15))(effect@3.19.15))(@effect/sql@0.48.6(@effect/experimental@0.58.0(@effect/platform@0.94.2(effect@3.19.15))(effect@3.19.15))(@effect/platform@0.94.2(effect@3.19.15))(effect@3.19.15))(effect@3.19.15)
+      '@one-kilo/lib':
+        specifier: workspace:*
+        version: link:../../libs/lib
       '@workos-inc/authkit-nextjs':
         specifier: 2.12.0
         version: 2.12.0(next@16.0.8(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
@@ -129,18 +129,30 @@ importers:
 
   libs/domain:
     dependencies:
-      '@effect-workos/lib':
-        specifier: workspace:*
-        version: link:../lib
       '@effect/auth-workos':
         specifier: workspace:*
         version: link:../../packages/workos
+      '@one-kilo/lib':
+        specifier: workspace:*
+        version: link:../lib
       effect:
         specifier: ^3.19.15
         version: 3.19.15
 
   libs/lib:
     devDependencies:
+      effect:
+        specifier: ^3.19.15
+        version: 3.19.15
+
+  libs/telemetry:
+    dependencies:
+      '@effect/opentelemetry':
+        specifier: ^0.61.0
+        version: 0.61.0(@effect/platform@0.94.2(effect@3.19.15))(@opentelemetry/api@1.9.0)(@opentelemetry/resources@2.5.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-logs@0.211.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-metrics@2.5.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.5.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-node@2.5.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-web@2.5.0(@opentelemetry/api@1.9.0))(@opentelemetry/semantic-conventions@1.39.0)(effect@3.19.15)
+      '@effect/platform-node':
+        specifier: ^0.104.1
+        version: 0.104.1(@effect/cluster@0.55.0(@effect/platform@0.94.2(effect@3.19.15))(@effect/rpc@0.72.2(@effect/platform@0.94.2(effect@3.19.15))(effect@3.19.15))(@effect/sql@0.48.6(@effect/experimental@0.58.0(@effect/platform@0.94.2(effect@3.19.15))(effect@3.19.15))(@effect/platform@0.94.2(effect@3.19.15))(effect@3.19.15))(@effect/workflow@0.15.1(@effect/experimental@0.58.0(@effect/platform@0.94.2(effect@3.19.15))(effect@3.19.15))(@effect/platform@0.94.2(effect@3.19.15))(@effect/rpc@0.72.2(@effect/platform@0.94.2(effect@3.19.15))(effect@3.19.15))(effect@3.19.15))(effect@3.19.15))(@effect/platform@0.94.2(effect@3.19.15))(@effect/rpc@0.72.2(@effect/platform@0.94.2(effect@3.19.15))(effect@3.19.15))(@effect/sql@0.48.6(@effect/experimental@0.58.0(@effect/platform@0.94.2(effect@3.19.15))(effect@3.19.15))(@effect/platform@0.94.2(effect@3.19.15))(effect@3.19.15))(effect@3.19.15)
       effect:
         specifier: ^3.19.15
         version: 3.19.15

@@ -1,8 +1,8 @@
 {
-  "name": "@effect-workos/server",
+  "name": "@one-kilo/server",
   "version": "0.1.0",
   "dependencies": {
-    "@effect-workos/lib": "workspace:*",
+    "@one-kilo/lib": "workspace:*",
     "@effect/auth-workos": "workspace:*",
     "@effect/experimental": "^0.58.0",
     "@effect/platform": "^0.94.2",

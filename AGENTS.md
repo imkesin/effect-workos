@@ -1,4 +1,4 @@
-# Effect WorkOS Monorepo Guide
+# One Kilo Monorepo Guide
 
 ## Structure
 

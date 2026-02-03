@@ -1,4 +1,4 @@
-import { UnexpectedError } from "@effect-workos/lib/errors/UnexpectedError"
+import { UnexpectedError } from "@one-kilo/lib/errors/UnexpectedError"
 import * as WorkOSValues from "@effect/auth-workos/domain/Values"
 import * as Clock from "effect/Clock"
 import * as Effect from "effect/Effect"

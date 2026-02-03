@@ -1,4 +1,3 @@
-# Effect WorkOS
+# One Kilo
 
-This is a work in progress
-
+This is an example application that uses Effect and WorkOS.
