@@ -1,0 +1,20 @@
+{
+  "name": "@effect-workos/tracing",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "exports": {
+    "./*": "./dist/src/*.js"
+  },
+  "scripts": {
+    "build": "tsc --build tsconfig.src.json",
+    "clean": "rm -rf .turbo dist",
+    "lint": "eslint .",
+    "typecheck": "tsc --build"
+  },
+  "dependencies": {
+    "@effect/opentelemetry": "^0.61.0",
+    "@effect/platform-node": "^0.104.1",
+    "effect": "^3.19.15"
+  }
+}
