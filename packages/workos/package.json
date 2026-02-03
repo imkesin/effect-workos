@@ -1,5 +1,5 @@
 {
-  "name": "@effect-workos/workos",
+  "name": "@effect/auth-workos",
   "version": "0.1.0",
   "devDependencies": {
     "@effect/platform": "^0.94.2",

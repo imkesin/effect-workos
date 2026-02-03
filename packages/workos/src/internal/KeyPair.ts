@@ -2,7 +2,7 @@ import * as Effect from "effect/Effect"
 import * as Jose from "jose"
 
 export class KeyPairTest extends Effect.Service<KeyPairTest>()(
-  "@effect-workos/workos/KeyPairTest",
+  "@effect/auth-workos/KeyPairTest",
   {
     dependencies: [],
     effect: Effect.gen(function*() {

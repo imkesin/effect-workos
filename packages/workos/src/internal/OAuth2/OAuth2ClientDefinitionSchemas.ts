@@ -314,7 +314,7 @@ export class RetrieveTokenByDeviceCodeResponseAuthorizationDeclined
   )
 {}
 export class DeviceCodeAuthorizationTerminated
-  extends S.TaggedError<DeviceCodeAuthorizationTerminated>("@effect-workos/workos/DeviceCodeAuthorizationTerminated")(
+  extends S.TaggedError<DeviceCodeAuthorizationTerminated>("@effect/auth-workos/DeviceCodeAuthorizationTerminated")(
     "DeviceCodeAuthorizationTerminated",
     {
       deviceCode: S.NonEmptyTrimmedString

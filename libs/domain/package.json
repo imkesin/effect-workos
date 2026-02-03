@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "dependencies": {
     "@effect-workos/lib": "workspace:*",
-    "@effect-workos/workos": "workspace:*",
+    "@effect/auth-workos": "workspace:*",
     "effect": "^3.19.15"
   },
   "exports": {

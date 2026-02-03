@@ -12,7 +12,7 @@ export interface Service {
 }
 
 export class TokenGenerator extends Context.Tag(
-  "@effect-workos/workos/TokenGenerator"
+  "@effect/auth-workos/TokenGenerator"
 )<TokenGenerator, Service>() {}
 
 export const makeTest = (

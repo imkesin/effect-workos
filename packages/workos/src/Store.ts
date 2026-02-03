@@ -11,7 +11,7 @@ export interface Service {
 }
 
 export class Store extends Context.Tag(
-  "@effect-workos/workos/Store"
+  "@effect/auth-workos/Store"
 )<Store, Service>() {}
 
 export const makeTest = (options?: StoreDefinitions.MakeOptions): Effect.Effect<

@@ -60,23 +60,23 @@ export function encodeCrockfordBase32(bytes: Uint8Array): string {
 }
 
 export function formatBytesAsUUIDv7(bytes: Uint8Array) {
-  let output = "";
+  let output = ""
 
   for (let i = 0; i < bytes.length; i++) {
     const byte = bytes[i] ?? 0
 
-    output += HEX_ALPHABET.charAt(byte >>> 4);
-    output += HEX_ALPHABET.charAt(byte & 0xf);
+    output += HEX_ALPHABET.charAt(byte >>> 4)
+    output += HEX_ALPHABET.charAt(byte & 0xf)
 
     if (i === 3 || i === 5 || i === 7 || i === 9) {
-      output += "-";
+      output += "-"
     }
   }
 
-  return UUIDv7.make(output);
+  return UUIDv7.make(output)
 }
 export function formatHexStringAsUUIDv7(hex: string) {
-  let output = "";
+  let output = ""
 
   for (let i = 0; i < hex.length; i++) {
     const char = hex[i]
@@ -87,5 +87,5 @@ export function formatHexStringAsUUIDv7(hex: string) {
     }
   }
 
-  return UUIDv7.make(output);
+  return UUIDv7.make(output)
 }

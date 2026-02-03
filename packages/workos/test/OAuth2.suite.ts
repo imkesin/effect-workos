@@ -12,7 +12,7 @@ export interface TestSuiteContext {
 }
 
 export class OAuth2TestSuiteContext extends Context.Tag(
-  "@effect-workos/workos/OAuth2TestSuiteContext"
+  "@effect/auth-workos/OAuth2TestSuiteContext"
 )<OAuth2TestSuiteContext, TestSuiteContext>() {}
 
 export const makeOAuth2Tests = () =>

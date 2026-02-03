@@ -3,13 +3,13 @@ import * as S from "effect/Schema"
 
 export const AccessToken = pipe(
   S.NonEmptyTrimmedString,
-  S.brand("@effect-workos/workos/AccessToken")
+  S.brand("@effect/auth-workos/AccessToken")
 )
 export type AccessToken = typeof AccessToken.Type
 
 export const AuthenticationCode = pipe(
   S.NonEmptyTrimmedString,
-  S.brand("@effect-workos/workos/AuthenticationCode")
+  S.brand("@effect/auth-workos/AuthenticationCode")
 )
 export type AuthenticationCode = typeof AuthenticationCode.Type
 
@@ -24,23 +24,23 @@ export const AuthenticationMethod = pipe(
     "MagicAuth",
     "Impersonation"
   ),
-  S.brand("@effect-workos/workos/AuthenticationMethod")
+  S.brand("@effect/auth-workos/AuthenticationMethod")
 )
 export type AuthenticationMethod = typeof AuthenticationMethod.Type
 
 export const EmailAddress = pipe(
   S.NonEmptyTrimmedString,
-  S.brand("@effect-workos/workos/EmailAddress")
+  S.brand("@effect/auth-workos/EmailAddress")
 )
 export type EmailAddress = typeof EmailAddress.Type
 
 export const IdToken = pipe(
   S.NonEmptyTrimmedString,
-  S.brand("@effect-workos/workos/IdToken")
+  S.brand("@effect/auth-workos/IdToken")
 )
 export type IdToken = typeof IdToken.Type
 
-export class Impersonator extends S.Class<Impersonator>("@effect-workos/workos/Impersonator")({
+export class Impersonator extends S.Class<Impersonator>("@effect/auth-workos/Impersonator")({
   _tag: pipe(
     S.Literal("Impersonator"),
     S.optional,
@@ -59,28 +59,28 @@ export class Impersonator extends S.Class<Impersonator>("@effect-workos/workos/I
 
 export const OrganizationDomainState = pipe(
   S.Literal("verified", "pending", "failed"),
-  S.brand("@effect-workos/workos/OrganizationDomainState")
+  S.brand("@effect/auth-workos/OrganizationDomainState")
 )
 export type OrganizationDomainState = typeof OrganizationDomainState.Type
 
 export const OrganizationDomainVerificationStrategy = pipe(
   S.Literal("dns", "manual"),
-  S.brand("@effect-workos/workos/OrganizationDomainVerificationStrategy")
+  S.brand("@effect/auth-workos/OrganizationDomainVerificationStrategy")
 )
 export type OrganizationDomainVerificationStrategy = typeof OrganizationDomainVerificationStrategy.Type
 
 export const OrganizationMembershipStatus = pipe(
   S.Literal("active", "inactive", "pending"),
-  S.brand("@effect-workos/workos/OrganizationMembershipStatus")
+  S.brand("@effect/auth-workos/OrganizationMembershipStatus")
 )
 export type OrganizationMembershipStatus = typeof OrganizationMembershipStatus.Type
 
 export const RefreshToken = pipe(
   S.NonEmptyTrimmedString,
-  S.brand("@effect-workos/workos/RefreshToken")
+  S.brand("@effect/auth-workos/RefreshToken")
 )
 export type RefreshToken = typeof RefreshToken.Type
 
-export class Role extends S.Class<Role>("@effect-workos/workos/Role")({
+export class Role extends S.Class<Role>("@effect/auth-workos/Role")({
   slug: S.NonEmptyTrimmedString
 }) {}

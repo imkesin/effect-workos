@@ -4,7 +4,7 @@
 
 - `apps/` - Executable applications
 - `libs/` - Internal shared libraries (consumed by `apps/`, not published)
-- `packages/` - Publishable standalone packages (e.g., `@effect-workos/workos`)
+- `packages/` - Publishable standalone packages (e.g., `@effect/auth-workos`)
 
 ## Top-Level Commands
 

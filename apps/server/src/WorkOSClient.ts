@@ -1,5 +1,5 @@
-import * as ApiClient from "@effect-workos/workos/ApiClient"
-import * as ApiGateway from "@effect-workos/workos/ApiGateway"
+import * as ApiClient from "@effect/auth-workos/ApiClient"
+import * as ApiGateway from "@effect/auth-workos/ApiGateway"
 import { NodeHttpClient } from "@effect/platform-node"
 import { Config, Layer, pipe } from "effect"
 

@@ -13,7 +13,7 @@ export interface Service {
 }
 
 export class OAuth2Client extends Context.Tag(
-  "@effect-workos/workos/OAuth2Client"
+  "@effect/auth-workos/OAuth2Client"
 )<OAuth2Client, Service>() {}
 
 export const make = (

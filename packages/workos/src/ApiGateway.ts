@@ -11,7 +11,7 @@ export interface Service {
 }
 
 export class ApiGateway extends Context.Tag(
-  "@effect-workos/workos/ApiGateway"
+  "@effect/auth-workos/ApiGateway"
 )<ApiGateway, Service>() {}
 
 export const makeTest = (): Effect.Effect<Service, never, Store.Store> =>

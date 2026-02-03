@@ -16,7 +16,7 @@ export interface Service {
 }
 
 export class TokenClient extends Context.Tag(
-  "@effect-workos/workos/TokenClient"
+  "@effect/auth-workos/TokenClient"
 )<TokenClient, Service>() {}
 
 export const makeTest = (

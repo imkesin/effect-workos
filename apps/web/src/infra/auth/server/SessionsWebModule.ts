@@ -1,14 +1,14 @@
+import { UnexpectedError } from "@effect-workos/lib/errors/UnexpectedError"
+import * as WorkOSValues from "@effect/auth-workos/domain/Values"
+import * as Clock from "effect/Clock"
 import * as Effect from "effect/Effect"
 import { pipe } from "effect/Function"
+import * as S from "effect/Schema"
+import * as Jose from "jose"
+import { isDynamicServerError as isNextDynamicServerError } from "next/dist/client/components/hooks-server-context"
+import { cookies } from "next/headers"
 import { ServerApiClient } from "~/infra/api/ServerApiClient"
 import { DynamicServerError } from "~/lib/errors"
-import { cookies } from "next/headers"
-import { UnexpectedError } from "@effect-workos/lib/errors/UnexpectedError"
-import { isDynamicServerError as isNextDynamicServerError } from "next/dist/client/components/hooks-server-context"
-import * as Jose from "jose"
-import * as WorkOSValues from "@effect-workos/workos/domain/Values"
-import * as Clock from "effect/Clock"
-import * as S from "effect/Schema"
 
 export class AccessTokenCookieNotFoundError extends S.TaggedError<AccessTokenCookieNotFoundError>()(
   "AccessTokenCookieNotFoundError",
@@ -35,7 +35,7 @@ export class SessionsWebModule extends Effect.Service<SessionsWebModule>()(
   {
     dependencies: [ServerApiClient.Default],
     effect: Effect.gen(function*() {
-      const serverApiClient = yield* ServerApiClient
+      const _serverApiClient = yield* ServerApiClient
 
       const cookiesStoreEffect = pipe(
         Effect.tryPromise({
@@ -69,7 +69,7 @@ export class SessionsWebModule extends Effect.Service<SessionsWebModule>()(
         }
       )
 
-      const checkAccessTokenExpiration = Effect.fn(function*(accessToken: WorkOSValues.AccessToken) {
+      const _checkAccessTokenExpiration = Effect.fn(function*(accessToken: WorkOSValues.AccessToken) {
         const { exp } = Jose.decodeJwt(accessToken)
         if (exp === undefined) {
           return yield* Effect.die(new UnexpectedError({ message: "JWT is missing expiration" }))
@@ -85,7 +85,7 @@ export class SessionsWebModule extends Effect.Service<SessionsWebModule>()(
         return accessToken
       })
 
-      const staleAccessToken = Effect.gen(function*() {
+      const _staleAccessToken = Effect.gen(function*() {
         const cookieStore = yield* cookiesStoreEffect
         const cookie = cookieStore.get(HTTP_ONLY_COOKIE_NAME)
 

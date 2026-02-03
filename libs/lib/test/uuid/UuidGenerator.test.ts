@@ -19,8 +19,7 @@ describe("UUIDGenerator", () => {
         }
 
         expect(new Set(uuids).size).toBe(count)
-      })
-    )
+      }))
 
     it.effect("generates UUIDs with varying suffixes for human readability", () =>
       Effect.gen(function*() {
@@ -40,8 +39,7 @@ describe("UUIDGenerator", () => {
 
         // All suffixes should be unique
         expect(new Set(suffixes).size).toBe(count)
-      })
-    )
+      }))
 
     it.effect("generates UUIDs in sortable order", () =>
       Effect.gen(function*() {
@@ -55,8 +53,7 @@ describe("UUIDGenerator", () => {
 
         const sorted = [...uuids].sort()
         expect(uuids).toEqual(sorted)
-      })
-    )
+      }))
 
     it.effect("encodes correct timestamp in UUID", () =>
       Effect.gen(function*() {
@@ -70,7 +67,6 @@ describe("UUIDGenerator", () => {
 
         // Should be within a small margin of current time
         expect(Math.abs(encodedMs - Number(currentMs))).toBeLessThan(10)
-      })
-    )
+      }))
   })
 })

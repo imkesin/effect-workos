@@ -1,4 +1,4 @@
-import * as WorkOSPublicApiClient from "@effect-workos/workos/PublicApiClient"
+import * as WorkOSPublicApiClient from "@effect/auth-workos/PublicApiClient"
 import * as Config from "effect/Config"
 import * as Effect from "effect/Effect"
 import type { NextRequest } from "next/server"

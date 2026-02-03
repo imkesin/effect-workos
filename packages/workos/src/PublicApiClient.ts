@@ -14,7 +14,7 @@ export interface Service {
 }
 
 export class PublicApiClient extends Context.Tag(
-  "@effect-workos/workos/PublicApiClient"
+  "@effect/auth-workos/PublicApiClient"
 )<PublicApiClient, Service>() {}
 
 export const make = (

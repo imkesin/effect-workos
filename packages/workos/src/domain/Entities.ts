@@ -9,7 +9,7 @@ import {
   Role
 } from "./Values.ts"
 
-export class OrganizationDomain extends S.Class<OrganizationDomain>("@effect-workos/workos/OrganizationDomain")({
+export class OrganizationDomain extends S.Class<OrganizationDomain>("@effect/auth-workos/OrganizationDomain")({
   _tag: pipe(
     S.Literal("OrganizationDomain"),
     S.optional,
@@ -39,7 +39,7 @@ export class OrganizationDomain extends S.Class<OrganizationDomain>("@effect-wor
   )
 }) {}
 
-export class Organization extends S.Class<Organization>("@effect-workos/workos/Organization")({
+export class Organization extends S.Class<Organization>("@effect/auth-workos/Organization")({
   _tag: pipe(
     S.Literal("Organization"),
     S.optional,
@@ -122,7 +122,7 @@ const OrganizationMembershipBaseFields = {
 } as const
 
 export class OrganizationMembership extends S.Class<OrganizationMembership>(
-  "@effect-workos/workos/OrganizationMembership"
+  "@effect/auth-workos/OrganizationMembership"
 )({
   ...OrganizationMembershipBaseFields,
 
@@ -135,7 +135,7 @@ export class OrganizationMembership extends S.Class<OrganizationMembership>(
   static normalizedFields = OrganizationMembershipBaseFields
 }
 
-export class User extends S.Class<User>("@effect-workos/workos/User")({
+export class User extends S.Class<User>("@effect/auth-workos/User")({
   _tag: pipe(
     S.Literal("User"),
     S.optional,

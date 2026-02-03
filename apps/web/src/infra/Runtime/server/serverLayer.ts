@@ -1,5 +1,5 @@
-import * as WorkOSIds from "@effect-workos/workos/domain/Ids"
-import * as WorkOSPublicApiClient from "@effect-workos/workos/PublicApiClient"
+import * as WorkOSIds from "@effect/auth-workos/domain/Ids"
+import * as WorkOSPublicApiClient from "@effect/auth-workos/PublicApiClient"
 import { Config, Layer, Logger, pipe } from "effect"
 
 const layerPublicApiClient = WorkOSPublicApiClient.layerConfig({

@@ -1,7 +1,7 @@
 import { HttpApi, HttpApiClient } from "@effect/platform"
 import { NodeHttpClient } from "@effect/platform-node"
-import * as Effect from "effect/Effect"
 import * as Config from "effect/Config"
+import * as Effect from "effect/Effect"
 import { pipe } from "effect/Function"
 
 const ServerApi = HttpApi.make("ServerApi")

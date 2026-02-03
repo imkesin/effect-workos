@@ -1,7 +1,7 @@
 import { describe, it } from "@effect/vitest"
+import { pipe } from "effect/Function"
 import * as S from "effect/Schema"
 import { expect } from "vitest"
-import { pipe } from "effect/Function"
 import { ShortenedUUIDv7, UUIDv7, UUIDv7FromShortened } from "../../src/uuid/UUIDv7.ts"
 
 const FULL = "019c1144-15bd-7eff-a88d-37439858704e"
@@ -74,4 +74,3 @@ describe("UUIDv7FromShortened", () => {
     expect(decoded).toBe(FULL)
   })
 })
-

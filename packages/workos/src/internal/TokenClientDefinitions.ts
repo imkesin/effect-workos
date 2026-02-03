@@ -113,14 +113,14 @@ class DecodedSessionAccessToken extends S.Class<DecodedSessionAccessToken>("Deco
   }
 ) {}
 
-class ExpiredTokenError extends S.TaggedError<ExpiredTokenError>("@effect-workos/workos/ExpiredTokenError")(
+class ExpiredTokenError extends S.TaggedError<ExpiredTokenError>("@effect/auth-workos/ExpiredTokenError")(
   "ExpiredTokenError",
   {
     cause: S.Defect,
     token: S.NonEmptyTrimmedString
   }
 ) {}
-class InvalidTokenError extends S.TaggedError<InvalidTokenError>("@effect-workos/workos/InvalidUrlError")(
+class InvalidTokenError extends S.TaggedError<InvalidTokenError>("@effect/auth-workos/InvalidUrlError")(
   "InvalidTokenError",
   {
     cause: S.Defect,

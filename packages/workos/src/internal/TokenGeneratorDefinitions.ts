@@ -8,7 +8,7 @@ import type { ClientId, OrganizationId, SessionId, UserId } from "../domain/Ids.
 import { AccessToken, RefreshToken } from "../domain/Values.ts"
 import { generateRandomString } from "../lib/RandomString.ts"
 
-class GenerateTokenError extends S.TaggedError<GenerateTokenError>("@effect-workos/workos/GenerateTokenError")(
+class GenerateTokenError extends S.TaggedError<GenerateTokenError>("@effect/auth-workos/GenerateTokenError")(
   "GenerateTokenError",
   {
     cause: S.Defect
