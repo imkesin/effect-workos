@@ -13,20 +13,18 @@
   "license": "ISC",
   "private": true,
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --build tsconfig.src.json",
     "clean": "rm -rf .turbo dist",
     "dev": "run-p dev:**",
     "dev:node": "npm run node:base -- --watch dist/dev.js",
-    "dev:tsc": "tsc --watch --preserveWatchOutput",
+    "dev:tsc": "tsc --build tsconfig.src.json --watch --preserveWatchOutput",
     "lint": "eslint .",
     "node:base": "node --env-file=.env.local --enable-source-maps",
     "start": "npm run node:base -- dist/main.js",
     "test": "vitest",
     "test:integration": "vitest --config ./vitest.integration.config.ts",
     "test:once": "vitest run",
-    "typecheck": "run-p typecheck:**",
-    "typecheck:main": "tsc -p tsconfig.json --noEmit",
-    "typecheck:test": "tsc -p tsconfig.test.json --noEmit"
+    "typecheck": "tsc --build"
   },
   "type": "module"
 }
