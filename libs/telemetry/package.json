@@ -1,20 +1,20 @@
 {
   "name": "@one-kilo/telemetry",
   "version": "0.1.0",
-  "type": "module",
-  "private": true,
+  "dependencies": {
+    "@effect/opentelemetry": "^0.61.0",
+    "@effect/platform-node": "^0.104.1",
+    "effect": "^3.19.15"
+  },
   "exports": {
     "./*": "./dist/src/*.js"
   },
+  "private": true,
   "scripts": {
     "build": "tsc --build tsconfig.src.json",
     "clean": "rm -rf .turbo dist",
     "lint": "eslint .",
     "typecheck": "tsc --build"
   },
-  "dependencies": {
-    "@effect/opentelemetry": "^0.61.0",
-    "@effect/platform-node": "^0.104.1",
-    "effect": "^3.19.15"
-  }
+  "type": "module"
 }

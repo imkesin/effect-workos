@@ -4,10 +4,10 @@
   "dependencies": {
     "@ariakit/react": "^0.4.20",
     "@effect-atom/atom-react": "^0.5.0",
-    "@one-kilo/lib": "workspace:*",
     "@effect/auth-workos": "workspace:*",
     "@effect/platform": "^0.94.2",
     "@effect/platform-node": "^0.104.1",
+    "@one-kilo/lib": "workspace:*",
     "@workos-inc/authkit-nextjs": "2.12.0",
     "babel-plugin-react-compiler": "1.0.0",
     "effect": "^3.19.15",

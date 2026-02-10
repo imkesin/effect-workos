@@ -1,11 +1,15 @@
 {
   "name": "@one-kilo/server-api",
   "version": "0.1.0",
-  "type": "module",
-  "private": true,
+  "dependencies": {
+    "@effect/platform": "^0.94.2",
+    "@one-kilo/domain": "workspace:*",
+    "effect": "^3.19.15"
+  },
   "exports": {
     "./*": "./dist/src/*.js"
   },
+  "private": true,
   "scripts": {
     "build": "tsc --build tsconfig.src.json",
     "clean": "rm -rf .turbo dist",
@@ -13,10 +17,5 @@
     "lint": "eslint .",
     "typecheck": "tsc --build"
   },
-  "dependencies": {
-    "@one-kilo/domain": "workspace:*",
-    "@effect/platform": "^0.94.2",
-    "effect": "^3.19.15"
-  }
+  "type": "module"
 }
-

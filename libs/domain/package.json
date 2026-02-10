@@ -2,8 +2,8 @@
   "name": "@one-kilo/domain",
   "version": "0.1.0",
   "dependencies": {
-    "@one-kilo/lib": "workspace:*",
     "@effect/auth-workos": "workspace:*",
+    "@one-kilo/lib": "workspace:*",
     "effect": "^3.19.15"
   },
   "exports": {
