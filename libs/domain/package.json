@@ -7,7 +7,8 @@
     "effect": "^3.19.15"
   },
   "exports": {
-    "./*": "./dist/src/*.js"
+    "./*": "./dist/src/*.js",
+    "./internal/*": null
   },
   "private": true,
   "scripts": {

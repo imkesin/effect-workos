@@ -11,7 +11,8 @@
     "./*": {
       "types": "./dist/src/*.d.ts",
       "default": "./dist/src/*.js"
-    }
+    },
+    "./internal/*": null
   },
   "peerDependencies": {
     "@effect/platform": "^0.94.2",

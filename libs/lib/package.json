@@ -5,7 +5,8 @@
     "effect": "^3.19.15"
   },
   "exports": {
-    "./*": "./dist/src/*.js"
+    "./*": "./dist/src/*.js",
+    "./internal/*": null
   },
   "peerDependencies": {
     "effect": "^3.19.15"

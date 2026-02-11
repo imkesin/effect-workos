@@ -70,6 +70,7 @@ export class AuthenticateWithCodeParameters
     ...AuthenticateRequestWithSecretCommonFields
   })
 {}
+
 export class AuthenticateWithCodeResponse
   extends S.Class<AuthenticateWithCodeResponse>("AuthenticateWithCodeResponse")({
     ...AuthenticateResponseCommonFields,

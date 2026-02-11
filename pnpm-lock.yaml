@@ -147,6 +147,9 @@ importers:
 
   libs/server-api:
     dependencies:
+      '@effect/auth-workos':
+        specifier: workspace:*
+        version: link:../../packages/workos
       '@effect/platform':
         specifier: ^0.94.2
         version: 0.94.2(effect@3.19.15)
