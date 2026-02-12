@@ -180,6 +180,9 @@ importers:
       '@one-kilo/domain':
         specifier: workspace:*
         version: link:../domain
+      '@one-kilo/lib':
+        specifier: workspace:*
+        version: link:../lib
       effect:
         specifier: ^3.19.15
         version: 3.19.15

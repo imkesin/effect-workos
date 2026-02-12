@@ -16,7 +16,17 @@ export const UserId = pipe(
 )
 export type UserId = typeof UserId.Type
 
-export const generate = Effect.map(UUIDGenerator.UUIDGenerator.v7, UserId.make)
+export class UserIdGenerator extends Effect.Service<UserIdGenerator>()(
+  "@one-kilo/domain/UserIdGenerator",
+  {
+    dependencies: [UUIDGenerator.UUIDGenerator.Default],
+    effect: Effect.gen(function*() {
+      const uuidGenerator = yield* UUIDGenerator.UUIDGenerator
+      const generate = Effect.map(uuidGenerator.v7, UserId.make)
+      return { generate }
+    })
+  }
+) {}
 
 export const PrefixedUserId = pipe(
   S.NonEmptyTrimmedString,
