@@ -1,4 +1,4 @@
-import { pipe } from "effect"
+import { pipe } from "effect/Function"
 import * as S from "effect/Schema"
 import { ClientId } from "../../domain/Ids.ts"
 import { AuthorizeScopeFromSet } from "../OAuth2/OAuth2ClientDefinitionSchemas.ts"

@@ -1,11 +1,11 @@
-import { Schema } from "effect"
+import * as S from "effect/Schema"
 import { DynamicServerError as NextDynamicServerError } from "next/dist/client/components/hooks-server-context"
 import { RedirectError as NextRedirectError } from "next/dist/client/components/redirect-error"
 
-export class DynamicServerError extends Schema.TaggedError<DynamicServerError>()(
+export class DynamicServerError extends S.TaggedError<DynamicServerError>()(
   "DynamicServerError",
   {
-    _nextCause: Schema.instanceOf(NextDynamicServerError)
+    _nextCause: S.instanceOf(NextDynamicServerError)
   },
   {
     description: "An error was thrown to indicate that a page should be re-rendered dynamically"
@@ -15,12 +15,12 @@ export class DynamicServerError extends Schema.TaggedError<DynamicServerError>()
     return DynamicServerError.make({ _nextCause: error })
   }
 }
-export const isDynamicServerError = Schema.is(DynamicServerError)
+export const isDynamicServerError = S.is(DynamicServerError)
 
-export class RedirectError extends Schema.TaggedError<RedirectError>()(
+export class RedirectError extends S.TaggedError<RedirectError>()(
   "RedirectError",
   {
-    _nextCause: Schema.Defect
+    _nextCause: S.Defect
   },
   {
     description: "An error was thrown to indicate that this request should be redirected"
@@ -30,4 +30,4 @@ export class RedirectError extends Schema.TaggedError<RedirectError>()(
     return RedirectError.make({ _nextCause: error })
   }
 }
-export const isRedirectError = Schema.is(RedirectError)
+export const isRedirectError = S.is(RedirectError)

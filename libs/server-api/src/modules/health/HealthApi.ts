@@ -1,4 +1,6 @@
-import { HttpApiEndpoint, HttpApiError, HttpApiGroup } from "@effect/platform"
+import * as HttpApiEndpoint from "@effect/platform/HttpApiEndpoint"
+import * as HttpApiError from "@effect/platform/HttpApiError"
+import * as HttpApiGroup from "@effect/platform/HttpApiGroup"
 import { Health_RetrieveLiveness_ApiSchemas } from "./HealthApiSchemas.ts"
 
 export class HealthApi extends HttpApiGroup.make("health")

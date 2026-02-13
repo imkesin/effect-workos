@@ -1,4 +1,5 @@
-import { HttpApi, HttpApiError } from "@effect/platform"
+import * as HttpApi from "@effect/platform/HttpApi"
+import * as HttpApiError from "@effect/platform/HttpApiError"
 import { Authentication } from "./infra/Authentication.ts"
 import { HealthApi } from "./modules/health/HealthApi.ts"
 import { SessionsApi } from "./modules/sessions/SessionsApi.ts"

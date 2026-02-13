@@ -1,6 +1,6 @@
 import { NodeRuntime } from "@effect/platform-node"
-import { Layer } from "effect"
 import { pipe } from "effect/Function"
+import * as Layer from "effect/Layer"
 import { HttpLive } from "./Http.ts"
 
 pipe(

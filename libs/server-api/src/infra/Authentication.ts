@@ -1,8 +1,10 @@
-import { HttpApiMiddleware, HttpApiSchema, HttpApiSecurity } from "@effect/platform"
+import * as HttpApiMiddleware from "@effect/platform/HttpApiMiddleware"
+import * as HttpApiSchema from "@effect/platform/HttpApiSchema"
+import * as HttpApiSecurity from "@effect/platform/HttpApiSecurity"
 import { Actor } from "@one-kilo/domain/tags/Actor"
-import { Schema } from "effect"
+import * as S from "effect/Schema"
 
-export class UnauthorizedApiError extends Schema.TaggedError<UnauthorizedApiError>()(
+export class UnauthorizedApiError extends S.TaggedError<UnauthorizedApiError>()(
   "UnauthorizedApiError",
   {},
   HttpApiSchema.annotations({

@@ -1,6 +1,9 @@
 import { NodeContext } from "@effect/platform-node"
 import { PgClient, PgMigrator } from "@effect/sql-pg"
-import { Config, identity, Layer, pipe, String } from "effect"
+import * as Config from "effect/Config"
+import { identity, pipe } from "effect/Function"
+import * as Layer from "effect/Layer"
+import * as String from "effect/String"
 import { fileURLToPath } from "node:url"
 import TypeOverrides from "pg/lib/type-overrides"
 

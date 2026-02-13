@@ -1,4 +1,5 @@
-import { HttpApi, HttpApiError } from "@effect/platform"
+import * as HttpApi from "@effect/platform/HttpApi"
+import * as HttpApiError from "@effect/platform/HttpApiError"
 
 export class WebApi extends HttpApi.make("WebApi")
   .prefix("/api")

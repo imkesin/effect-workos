@@ -1,5 +1,5 @@
 import { AuthenticationCode } from "@effect/auth-workos/domain/Values"
-import { HttpApiSchema } from "@effect/platform"
+import * as HttpApiSchema from "@effect/platform/HttpApiSchema"
 import * as S from "effect/Schema"
 import { ExchangeCode_InvalidCode_ApiError } from "./internal/SessionsApiErrors.ts"
 

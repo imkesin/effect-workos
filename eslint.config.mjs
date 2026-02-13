@@ -36,6 +36,12 @@ export default defineConfig(
             "arrowFunction.useParentheses": "force"
           }
         }
+      ],
+      "@effect/no-import-from-barrel-package": [
+        "error",
+        {
+          packageNames: ["effect", "@effect/platform", "@effect/sql"]
+        }
       ]
     }
   }

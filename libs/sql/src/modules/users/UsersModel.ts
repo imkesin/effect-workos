@@ -1,5 +1,5 @@
 import * as WorkOSIds from "@effect/auth-workos/domain/Ids"
-import { Model } from "@effect/sql"
+import * as Model from "@effect/sql/Model"
 import { UserId } from "@one-kilo/domain/ids/UserId"
 import { ModelAuditFields } from "../../utils/ModelFields.ts"
 

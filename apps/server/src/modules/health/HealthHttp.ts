@@ -1,7 +1,7 @@
-import { HttpApiBuilder } from "@effect/platform"
+import * as HttpApiBuilder from "@effect/platform/HttpApiBuilder"
 import { Health_RetrieveLiveness_ApiSchemas } from "@one-kilo/server-api/modules/Health/HealthApiSchemas"
 import { ServerApi } from "@one-kilo/server-api/ServerApi"
-import { Effect } from "effect"
+import * as Effect from "effect/Effect"
 
 export const HealthHttp = HttpApiBuilder.group(
   ServerApi,

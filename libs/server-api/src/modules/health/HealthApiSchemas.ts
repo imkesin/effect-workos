@@ -1,6 +1,6 @@
-import { HttpApiSchema } from "@effect/platform"
-import { Schema } from "effect"
+import * as HttpApiSchema from "@effect/platform/HttpApiSchema"
+import * as S from "effect/Schema"
 
-export const Health_RetrieveLiveness_ApiSchemas = {
-  Success: Schema.Struct({}).annotations(HttpApiSchema.annotations({ status: 200 }))
-} as const
+const Health_RetrieveLiveness_ApiSuccess = S.Struct({}).annotations(HttpApiSchema.annotations({ status: 200 }))
+
+export const Health_RetrieveLiveness_ApiSchemas = { Success: Health_RetrieveLiveness_ApiSuccess } as const

@@ -1,14 +1,16 @@
-import { Effect, pipe, Schema } from "effect"
+import * as Effect from "effect/Effect"
+import { pipe } from "effect/Function"
+import * as S from "effect/Schema"
 
-export class UnexpectedError extends Schema.TaggedError<UnexpectedError>("@one-kilo/lib/UnexpectedError")(
+export class UnexpectedError extends S.TaggedError<UnexpectedError>("@one-kilo/lib/UnexpectedError")(
   "UnexpectedError",
   {
-    cause: Schema.optional(Schema.Defect),
-    context: Schema.optional(Schema.Record({
-      key: Schema.NonEmptyTrimmedString,
-      value: Schema.Unknown
+    cause: S.optional(S.Defect),
+    context: S.optional(S.Record({
+      key: S.NonEmptyTrimmedString,
+      value: S.Unknown
     })),
-    message: Schema.NonEmptyTrimmedString
+    message: S.NonEmptyTrimmedString
   },
   {
     description: "An unexpected error occurred."

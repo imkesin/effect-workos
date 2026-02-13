@@ -1,4 +1,4 @@
-import { Model } from "@effect/sql"
+import * as Model from "@effect/sql/Model"
 import { UserId } from "@one-kilo/domain/ids/UserId"
 import { WorkspaceId } from "@one-kilo/domain/ids/WorkspaceId"
 import { ModelAuditFields } from "../../utils/ModelFields.ts"

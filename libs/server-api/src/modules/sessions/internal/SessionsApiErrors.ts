@@ -1,4 +1,4 @@
-import { HttpApiSchema } from "@effect/platform"
+import * as HttpApiSchema from "@effect/platform/HttpApiSchema"
 import * as S from "effect/Schema"
 
 export class ExchangeCode_InvalidCode_ApiError extends S.TaggedError<ExchangeCode_InvalidCode_ApiError>()(

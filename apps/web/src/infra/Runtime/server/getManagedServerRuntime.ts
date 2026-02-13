@@ -1,4 +1,4 @@
-import { ManagedRuntime } from "effect"
+import * as ManagedRuntime from "effect/ManagedRuntime"
 import { serverLayer, type ServerLayerSuccess } from "./serverLayer"
 
 type ServerManagedRuntime = ManagedRuntime.ManagedRuntime<ServerLayerSuccess, unknown>

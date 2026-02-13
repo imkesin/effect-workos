@@ -1,5 +1,7 @@
 import { UnexpectedError } from "@one-kilo/lib/errors/UnexpectedError"
-import { Effect, Exit, Runtime } from "effect"
+import * as Effect from "effect/Effect"
+import * as Exit from "effect/Exit"
+import * as Runtime from "effect/Runtime"
 import { isDynamicServerError, isRedirectError } from "~/lib/errors"
 import { getManagedServerRuntime } from "./getManagedServerRuntime"
 import type { ServerLayerSuccess } from "./serverLayer"

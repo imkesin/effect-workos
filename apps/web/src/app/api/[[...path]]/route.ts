@@ -1,5 +1,8 @@
-import { HttpApiBuilder, HttpMiddleware, HttpServer } from "@effect/platform"
-import { Layer, pipe } from "effect"
+import * as HttpApiBuilder from "@effect/platform/HttpApiBuilder"
+import * as HttpMiddleware from "@effect/platform/HttpMiddleware"
+import * as HttpServer from "@effect/platform/HttpServer"
+import { pipe } from "effect/Function"
+import * as Layer from "effect/Layer"
 import { getManagedServerRuntime } from "~/infra/runtime/server/getManagedServerRuntime"
 import { WebApi } from "../WebApi"
 

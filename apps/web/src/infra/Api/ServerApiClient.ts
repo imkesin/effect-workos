@@ -1,5 +1,6 @@
-import { HttpApi, HttpApiClient } from "@effect/platform"
 import { NodeHttpClient } from "@effect/platform-node"
+import * as HttpApi from "@effect/platform/HttpApi"
+import * as HttpApiClient from "@effect/platform/HttpApiClient"
 import * as Config from "effect/Config"
 import * as Effect from "effect/Effect"
 import { pipe } from "effect/Function"

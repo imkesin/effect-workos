@@ -1,5 +1,5 @@
 import { withAuth } from "@workos-inc/authkit-nextjs"
-import { Effect } from "effect"
+import * as Effect from "effect/Effect"
 import { runWithServerRuntime } from "~/infra/runtime/server/runWithServerRuntime"
 
 const workspacesPage = Effect.succeed(

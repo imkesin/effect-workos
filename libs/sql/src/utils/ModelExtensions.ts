@@ -1,23 +1,26 @@
 import { VariantSchema } from "@effect/experimental"
-import { Model } from "@effect/sql"
-import { DateTime, Effect, Option, Schema } from "effect"
+import * as Model from "@effect/sql/Model"
+import * as DateTime from "effect/DateTime"
+import * as Effect from "effect/Effect"
+import * as Option from "effect/Option"
+import * as S from "effect/Schema"
 
 const DateTimeWithDefaultNull = VariantSchema.Overrideable(
-  Schema.NullOr(Schema.String),
-  Schema.NullOr(Schema.DateTimeUtcFromSelf),
+  S.NullOr(S.String),
+  S.NullOr(S.DateTimeUtcFromSelf),
   {
     generate: Option.match({
       onNone: () => Effect.succeed(null),
       onSome: (dt) => Effect.succeed(dt ? DateTime.formatIso(dt) : null)
     }),
-    decode: Schema.NullOr(Schema.DateTimeUtc),
+    decode: S.NullOr(S.DateTimeUtc),
     constructorDefault: () => null
   }
 )
 
 export const DateTimeArchived = Model.Field({
-  select: Schema.NullOr(Schema.DateTimeUtc),
+  select: S.NullOr(S.DateTimeUtc),
   insert: DateTimeWithDefaultNull,
   update: DateTimeWithDefaultNull,
-  json: Schema.NullOr(Schema.DateTimeUtc)
+  json: S.NullOr(S.DateTimeUtc)
 })

@@ -1,4 +1,4 @@
-import { Either } from "effect"
+import * as Either from "effect/Either"
 import * as Encoding from "effect/Encoding"
 import { identity, pipe } from "effect/Function"
 import * as ParseResult from "effect/ParseResult"
