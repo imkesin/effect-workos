@@ -1,5 +1,5 @@
 import * as HttpApiBuilder from "@effect/platform/HttpApiBuilder"
-import { Sessions_ExchangeCode_ApiSchemas } from "@one-kilo/server-api/modules/Sessions/SessionsApiSchemas"
+import { Sessions_ExchangeCode_ApiSchemas } from "@one-kilo/server-api/modules/sessions/SessionsApiSchemas"
 import { ServerApi } from "@one-kilo/server-api/ServerApi"
 import * as Effect from "effect/Effect"
 

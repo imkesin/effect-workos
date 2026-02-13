@@ -1,5 +1,5 @@
 import * as HttpApiBuilder from "@effect/platform/HttpApiBuilder"
-import { Health_RetrieveLiveness_ApiSchemas } from "@one-kilo/server-api/modules/Health/HealthApiSchemas"
+import { Health_RetrieveLiveness_ApiSchemas } from "@one-kilo/server-api/modules/health/HealthApiSchemas"
 import { ServerApi } from "@one-kilo/server-api/ServerApi"
 import * as Effect from "effect/Effect"
 
