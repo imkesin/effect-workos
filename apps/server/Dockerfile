@@ -17,4 +17,5 @@ ENV NODE_ENV=production
 COPY --from=build /prod/server /prod/server
 COPY --from=build /usr/src/app/apps/server/dist /prod/server/dist
 WORKDIR /prod/server
+EXPOSE 10000
 CMD ["node", "--enable-source-maps", "dist/src/main.js"]
