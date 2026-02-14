@@ -120,6 +120,12 @@
       "**/test/data": true,
       "pnpm-lock.yaml": true
     },
+    "json.schemas": [
+      {
+        "url": "https://turborepo.com/schema.json",
+        "fileMatch": ["turbo.json", "**/turbo.json"]
+      }
+    ],
     "typescript.tsdk": "node_modules/typescript/lib",
     "typescript.preferences.importModuleSpecifierEnding": "js"
   }
