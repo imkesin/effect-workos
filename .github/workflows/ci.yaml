@@ -36,6 +36,15 @@ jobs:
       contents: read
       id-token: write
     environment: dev
+    strategy:
+      matrix:
+        include:
+          - app: web
+            dockerfile: apps/web/Dockerfile
+            build-args: WORKOS_CLIENT_ID=${{ vars.WORKOS_CLIENT_ID }}
+          - app: server
+            dockerfile: apps/server/Dockerfile
+            build-args: ""
     env:
       REGISTRY: ${{ vars.DOCKER_REGISTRY }}
     steps:
@@ -55,23 +64,11 @@ jobs:
       - uses: docker/build-push-action@v6
         with:
           context: .
-          file: apps/web/Dockerfile
+          file: ${{ matrix.dockerfile }}
           push: true
           tags: |
-            ${{ env.REGISTRY }}/web:${{ github.sha }}
-            ${{ env.REGISTRY }}/web:latest
-          build-args: |
-            WORKOS_CLIENT_ID=${{ vars.WORKOS_CLIENT_ID }}
-          cache-from: type=gha,scope=web
-          cache-to: type=gha,mode=max,scope=web
-
-      - uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: apps/server/Dockerfile
-          push: true
-          tags: |
-            ${{ env.REGISTRY }}/server:${{ github.sha }}
-            ${{ env.REGISTRY }}/server:latest
-          cache-from: type=gha,scope=server
-          cache-to: type=gha,mode=max,scope=server
+            ${{ env.REGISTRY }}/${{ matrix.app }}:${{ github.sha }}
+            ${{ env.REGISTRY }}/${{ matrix.app }}:latest
+          build-args: ${{ matrix.build-args }}
+          cache-from: type=gha,scope=${{ matrix.app }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.app }}
