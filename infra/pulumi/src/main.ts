@@ -5,10 +5,12 @@ import * as YAML from "js-yaml"
 import { createGithubActionsResources } from "./github-actions.js"
 
 const config = new Pulumi.Config()
+const gcpConfig = new Pulumi.Config("gcp")
 
 const cluster = new GCP.container.Cluster(
   "one-kilo-cluster",
   {
+    location: gcpConfig.require("zone"),
     initialNodeCount: 1,
     nodeConfig: {
       machineType: "e2-medium",
@@ -107,14 +109,12 @@ const _cloudflared = new K8s.apps.v1.Deployment(
   { provider: k8sProvider }
 )
 
-// -- Artifact Registry --
-
 const artifactRegistryRepository = new GCP.artifactregistry.Repository(
   "one-kilo",
   {
     repositoryId: "one-kilo",
     format: "DOCKER",
-    location: new Pulumi.Config("gcp").require("region")
+    location: gcpConfig.require("region")
   }
 )
 
