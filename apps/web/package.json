@@ -27,8 +27,8 @@
   "scripts": {
     "build": "next build",
     "clean": "rm -rf .next .turbo dist",
-    "docker:build": "docker build -f Dockerfile -t one-kilo-web ../..",
     "dev": "next dev",
+    "docker:build": "docker build -f Dockerfile -t one-kilo-web ../..",
     "lint": "eslint .",
     "prepare": "panda codegen",
     "start": "next start",

@@ -1,11 +1,14 @@
 packages:
   - apps/*
+  - infra/*
   - libs/*
   - packages/*
 
 onlyBuiltDependencies:
   - '@parcel/watcher'
+  - '@pulumi/kubernetes'
   - esbuild
   - msgpackr-extract
+  - protobufjs
   - sharp
   - unrs-resolver

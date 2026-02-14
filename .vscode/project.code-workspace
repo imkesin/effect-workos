@@ -13,6 +13,11 @@
       "name": "@one-kilo/web",
       "path": "../apps/web"
     },
+    // Infrastructure
+    {
+      "name": "@one-kilo/pulumi",
+      "path": "../infra/pulumi"
+    },
     // Libraries
     {
       "name": "@one-kilo/domain",
@@ -88,9 +93,11 @@
   "settings": {
     "cSpell.words": [
       "authkit",
+      "cloudflared",
       "crockford",
       "hstack",
       "millis",
+      "pulumi",
       "pkce",
       "vstack",
       "workos"

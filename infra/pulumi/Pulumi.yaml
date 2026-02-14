@@ -1,0 +1,6 @@
+name: one-kilo-infra
+runtime:
+  name: nodejs
+  options:
+    packagemanager: pnpm
+main: src/main.ts

@@ -33,6 +33,7 @@
   },
   "workspaces": [
     "apps/*",
+    "infra/*",
     "libs/*",
     "packages/*"
   ]
