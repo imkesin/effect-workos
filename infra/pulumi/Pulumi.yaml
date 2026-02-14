@@ -3,4 +3,4 @@ runtime:
   name: nodejs
   options:
     packagemanager: pnpm
-main: src/main.ts
+main: dist/src/main.js

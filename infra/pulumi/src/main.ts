@@ -2,6 +2,7 @@ import * as GCP from "@pulumi/gcp"
 import * as K8s from "@pulumi/kubernetes"
 import * as Pulumi from "@pulumi/pulumi"
 import * as YAML from "js-yaml"
+import { createGithubActionsResources } from "./github-actions.js"
 
 const config = new Pulumi.Config()
 
@@ -105,3 +106,22 @@ const _cloudflared = new K8s.apps.v1.Deployment(
   },
   { provider: k8sProvider }
 )
+
+// -- Artifact Registry --
+
+const artifactRegistryRepository = new GCP.artifactregistry.Repository(
+  "one-kilo",
+  {
+    repositoryId: "one-kilo",
+    format: "DOCKER",
+    location: new Pulumi.Config("gcp").require("region")
+  }
+)
+
+const githubActions = createGithubActionsResources({
+  repository: artifactRegistryRepository,
+  githubRepository: "imkesin/one-kilo"
+})
+
+export const workloadIdentityPoolProviderName = githubActions.workloadIdentityPoolProvider.name
+export const githubActionsServiceAccountEmail = githubActions.serviceAccount.email
