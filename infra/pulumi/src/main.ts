@@ -15,7 +15,7 @@ const cluster = new GCP.container.Cluster(
     location: gcpConfig.require("zone"),
     initialNodeCount: 1,
     nodeConfig: {
-      machineType: "e2-medium",
+      machineType: "e2-standard-4",
       spot: true
     }
   }

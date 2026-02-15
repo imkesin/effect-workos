@@ -26,11 +26,20 @@ export function createGithubActionsResources(parameters: CreateGithubActionsReso
     }
   )
 
-  const _gkeIamMember = new GCP.projects.IAMMember(
-    "github-actions-gke-developer",
+  const _projectEditor = new GCP.projects.IAMMember(
+    "github-actions-project-editor",
     {
       project: parameters.cluster.project,
-      role: "roles/container.developer",
+      role: "roles/editor",
+      member: Pulumi.interpolate`serviceAccount:${serviceAccount.email}`
+    }
+  )
+
+  const _projectIamAdmin = new GCP.projects.IAMMember(
+    "github-actions-project-iam-admin",
+    {
+      project: parameters.cluster.project,
+      role: "roles/resourcemanager.projectIamAdmin",
       member: Pulumi.interpolate`serviceAccount:${serviceAccount.email}`
     }
   )
