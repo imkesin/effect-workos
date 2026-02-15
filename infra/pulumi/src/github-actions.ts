@@ -3,6 +3,7 @@ import * as Pulumi from "@pulumi/pulumi"
 
 export function createGithubActionsResources(options: {
   readonly repository: GCP.artifactregistry.Repository
+  readonly cluster: GCP.container.Cluster
   readonly githubRepository: string
 }) {
   const serviceAccount = new GCP.serviceaccount.Account(
@@ -19,6 +20,15 @@ export function createGithubActionsResources(options: {
       repository: options.repository.name,
       location: options.repository.location,
       role: "roles/artifactregistry.writer",
+      member: Pulumi.interpolate`serviceAccount:${serviceAccount.email}`
+    }
+  )
+
+  const _gkeIamMember = new GCP.projects.IAMMember(
+    "github-actions-gke-developer",
+    {
+      project: options.cluster.project,
+      role: "roles/container.developer",
       member: Pulumi.interpolate`serviceAccount:${serviceAccount.email}`
     }
   )

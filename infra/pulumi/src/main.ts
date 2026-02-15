@@ -120,6 +120,7 @@ const artifactRegistryRepository = new GCP.artifactregistry.Repository(
 
 const githubActions = createGithubActionsResources({
   repository: artifactRegistryRepository,
+  cluster,
   githubRepository: "imkesin/one-kilo"
 })
 
